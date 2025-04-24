@@ -3,31 +3,40 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
 
-        String[] opciones = {"Log in", "Registrarse"};
+        iniciarMenu();
+        
+    }
 
-        int seleccion = JOptionPane.showOptionDialog(null, "Bienvenido al Sistema Minashi", "Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+    static public void iniciarMenu(){
 
-        logIn();
+            String[] opciones = {"Log in", "Registrarse"};
+
+            int seleccion = JOptionPane.showOptionDialog(null, "Bienvenido al Sistema Minashi", "Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+
+            switch(seleccion){
+                case 0:
+                    logIn();
+                    break;
+                case 1:
+                    signIn();
+            }
 
     }
 
-
     static public void logIn(){
 
+        String usuarioCorrecto = "Admin";
+        String contrasenaCorrecta = "1234";
+        boolean reintentar = false;
 
-        String usuarioCorrecto = "Gamaliel";
-        String contrasenaCorrecto = "1234";
+        do {
 
-        JOptionPane.showInputDialog("Ingrese su usuario");
-        //TODO Validacion si el usuario existe en la base de datos
+            String user = JOptionPane.showInputDialog("Ingrese su usuario");
 
-        JPasswordField password = new JPasswordField();
+            //TODO Validacion si el usuario existe en la base de datos
 
-        JOptionPane.showConfirmDialog(null,password, "Menu", JOptionPane.OK_CANCEL_OPTION);
-        //
+            String pass = JOptionPane.showInputDialog("Ingresar Contraseña");
 
-<<<<<<< Updated upstream
-=======
             if (user.equals(usuarioCorrecto) && pass.equals(contrasenaCorrecta)) {
                 JOptionPane.showMessageDialog(null, "Los datos de inicio de sesion son correctos!");
 
@@ -48,26 +57,25 @@ public class Main {
 
     static public void mostrarFuncionalidades(){
 
-        String[] opciones = {"Verificar Stock", "Solictar Stock", "Ver Órdenes", "Emitir Órdenes"};
+        String[] opciones = {"opcion1", "opcion2", "opcion3", "opcion4"};
 
-        int seleccion = JOptionPane.showOptionDialog(null, "Que quiere hacer hoy?", "Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+        int seleccion = JOptionPane.showOptionDialog(null, "Que quiere hacer?", "Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
         switch(seleccion){
             case 0:
-                JOptionPane.showMessageDialog(null, "Minerales en stock");
+                JOptionPane.showMessageDialog(null, "Funcionalidad no implementada");
                 break;
             case 1:
-                JOptionPane.showMessageDialog(null, "Solicitar Minerales");
+                JOptionPane.showMessageDialog(null, "Funcionalidad no implementada");
                 break;
             case 2:
-                JOptionPane.showMessageDialog(null, "Órdenes en curso");
+                JOptionPane.showMessageDialog(null, "Funcionalidad no implementada");
                 break;
             case 3:
-                JOptionPane.showMessageDialog(null, "Finalizar proceso de venta");
+                JOptionPane.showMessageDialog(null, "Funcionalidad no implementada");
                 break;
             default:
                 break;
         }
->>>>>>> Stashed changes
-
+    }
 }
