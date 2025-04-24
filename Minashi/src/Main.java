@@ -57,22 +57,22 @@ public class Main {
 
     static public void mostrarFuncionalidades(){
 
-        String[] opciones = {"opcion1", "opcion2", "opcion3", "opcion4"};
+        String[] opciones = {"Verificar Stock", "Solictar Stock", "Ver Órdenes", "Emitir Órdenes"};
 
-        int seleccion = JOptionPane.showOptionDialog(null, "Que quiere hacer?", "Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
+        int seleccion = JOptionPane.showOptionDialog(null, "Que quiere hacer hoy?", "Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
 
         switch(seleccion){
             case 0:
-                JOptionPane.showMessageDialog(null, "Funcionalidad no implementada");
+                JOptionPane.showMessageDialog(null, "Minerales en stock");
                 break;
             case 1:
-                JOptionPane.showMessageDialog(null, "Funcionalidad no implementada");
+                JOptionPane.showMessageDialog(null, "Solicitar Minerales");
                 break;
             case 2:
-                JOptionPane.showMessageDialog(null, "Funcionalidad no implementada");
+                JOptionPane.showMessageDialog(null, "Órdenes en curso");
                 break;
             case 3:
-                JOptionPane.showMessageDialog(null, "Funcionalidad no implementada");
+                JOptionPane.showMessageDialog(null, "Finalizar proceso de venta");
                 break;
             default:
                 break;
