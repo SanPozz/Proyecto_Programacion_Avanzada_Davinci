@@ -8,8 +8,8 @@ public class Deposito extends Empleado{
     private Camion camion;
 
 
-    public Deposito(int idEmpleado, String nombreEmpleado, String apellidoEmpleado) {
-        super(idEmpleado, nombreEmpleado, apellidoEmpleado, "Deposito");
+    public Deposito(int idEmpleado, String nombreEmpleado, String apellidoEmpleado, int rolEmpleado) {
+        super(nombreEmpleado, apellidoEmpleado, rolEmpleado);
     }
 
     public ArrayList<Mineral> getInventario() {
