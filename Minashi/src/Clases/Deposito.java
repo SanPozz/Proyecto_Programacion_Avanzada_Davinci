@@ -2,14 +2,14 @@ package Clases;
 
 import java.util.ArrayList;
 
-public class Deposito extends Empleado{
+public class Deposito extends Usuario implements InterfaceDeposito{
 
     private ArrayList<Mineral> Inventario;
     private Camion camion;
 
 
-    public Deposito(int idEmpleado, String nombreEmpleado, String apellidoEmpleado, int rolEmpleado) {
-        super(nombreEmpleado, apellidoEmpleado, rolEmpleado);
+    public Deposito(String nombreEmpleado, String apellidoEmpleado, int edadEmpleado, String correoEmpleado) {
+        super(nombreEmpleado, apellidoEmpleado, edadEmpleado, correoEmpleado, 2);
     }
 
     public ArrayList<Mineral> getInventario() {
@@ -28,11 +28,43 @@ public class Deposito extends Empleado{
         this.camion = camion;
     }
 
+
+
     @Override
     public String toString() {
         return "Deposito{" +
                 "Inventario=" + Inventario +
                 ", camion=" + camion +
                 '}';
+    }
+
+    @Override
+    public void registrarMineral(Mineral mineral) {
+        
+    }
+
+    @Override
+    public void mostrarInventario() {
+
+    }
+
+    @Override
+    public void buscarMineralID(int mineralID) {
+
+    }
+
+    @Override
+    public void buscarMineralNombre(String nombreMineral) {
+
+    }
+
+    @Override
+    public void actualizarMineralID(int mineralID) {
+
+    }
+
+    @Override
+    public void eliminarMineralID(int mineralID) {
+
     }
 }

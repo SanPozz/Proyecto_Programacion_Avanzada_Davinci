@@ -75,14 +75,10 @@ public class Usuario {
 
           JOptionPane.showMessageDialog(null, "Iniciaste sesion" + "\nBienvenido " + rs.getString("nombre") + " " + rs.getString("apellido"));
 
-          switch (rs.getInt("rol")) {
-            case 1:
-              return new Cliente(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
+          Usuario user = crearUserPorRol(rs);
 
-            case 2:
-//              Deposito deposito = new Deposito()
-              break;
-          }
+          return user;
+
 
         }
 
@@ -91,13 +87,11 @@ public class Usuario {
     } catch (SQLException e) {
       return null;
     }
-
-
     return null;
   }
 
 
-  static public boolean signUp(String nombre, String apellido, String password, int edad, String correo){
+  static public boolean signUp(String nombre, String apellido, String password, int edad, String correo) throws SQLException {
 
     try {
 
@@ -123,8 +117,43 @@ public class Usuario {
     }
   }
 
+  static public Usuario crearUserPorRol(ResultSet rs) throws SQLException {
+
+    Usuario user = null;
+
+    switch (rs.getInt("rol")) {
+      case 1:
+        user = new Cliente(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
+        break;
+
+      case 2:
+        break;
+        case 3:
+          break;
+          case 4:
+            break;
+            case 5:
+              break;
+              default:
+                break;
+    }
+
+    return user;
+  };
+
 
   public int getRol() {
     return this.rol;
+  }
+
+  @Override
+  public String toString() {
+    return "Usuario{" +
+            "nombre='" + nombre + '\'' +
+            ", apellido='" + apellido + '\'' +
+            ", edad=" + edad +
+            ", correo='" + correo + '\'' +
+            ", rol=" + rol +
+            '}';
   }
 }

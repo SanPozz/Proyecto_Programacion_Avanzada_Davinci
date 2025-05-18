@@ -1,13 +1,17 @@
 package Clases;
 
 
+import Repository.UsersRepository;
+
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Menu {
 
 
-  static public void iniciarMenu() {
+  static public void iniciarMenu() throws SQLException {
 
     String[] opciones = {"Log in", "Registrarse"};
 
@@ -93,43 +97,50 @@ public class Menu {
             break;
           }
 
-
         }
 
     }
   }
 
-    static public void mostrarFuncionalidades ( int rol){
+    static public void mostrarFuncionalidades ( int rol) throws SQLException {
 
       String[] opcionesFunc = asignarOpcionesMenu(rol);
 
       int seleccionFunc = JOptionPane.showOptionDialog(null, "Que quiere hacer hoy?", "Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesFunc, opcionesFunc[0]);
 
-//      switch (seleccionFunc) {
-//        case 0:
-//          if (rol == 1) {
-//            JOptionPane.showMessageDialog(null, "Minerales en stock: \nCarbon:900\nPlata:1800\nHierro:1000\nOro:400\nTopacio:200\nSafiro:200");
-//          } else {
-//            JOptionPane.showMessageDialog(null, "Minerales: \nCarbon\nPlata\nHierro\nOro\nTopacio\nSafiro");
-//          }
-//          break;
-//        case 1:
-//          if (rol == 2) {
-//            JOptionPane.showMessageDialog(null, "Solicitar Minerales");
-//          } else {
-//            JOptionPane.showMessageDialog(null, "Compras: \n22/01/25: Compra de minerales, productos: ");
-//          }
-//
-//          break;
-//        case 2:
-//          JOptionPane.showMessageDialog(null, "Órdenes en curso");
-//          break;
-//        case 3:
-//          JOptionPane.showMessageDialog(null, "Finalizar proceso de venta");
-//          break;
-//        default:
-//          break;
-//      }
+      switch (seleccionFunc) {
+        case 0:
+          if (rol == 1) {
+            UsersRepository usersRepository = new UsersRepository();
+            final ArrayList<Usuario> users = usersRepository.encontrarUsuarios();
+            StringBuilder sb = new StringBuilder();
+
+            for(Usuario usuario : users) {
+              sb.append(usuario.toString()).append("\n");
+            }
+
+            JOptionPane.showMessageDialog(null, sb.toString());
+          } else {
+            JOptionPane.showMessageDialog(null, "Minerales: \nCarbon\nPlata\nHierro\nOro\nTopacio\nSafiro");
+          }
+          break;
+        case 1:
+          if (rol == 2) {
+            JOptionPane.showMessageDialog(null, "Solicitar Minerales");
+          } else {
+            JOptionPane.showMessageDialog(null, "Compras: \n22/01/25: Compra de minerales, productos: ");
+          }
+
+          break;
+        case 2:
+          JOptionPane.showMessageDialog(null, "Órdenes en curso");
+          break;
+        case 3:
+          JOptionPane.showMessageDialog(null, "Finalizar proceso de venta");
+          break;
+        default:
+          break;
+      }
     }
 
     static public String[] asignarOpcionesMenu(int rol){

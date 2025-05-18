@@ -1,11 +1,11 @@
 package Clases;
 
-public class Venta extends Empleado {
+public class Venta  {
 
     int cantVentas;
 
     public Venta(int idEmpleado, String nombreEmpleado, String apellidoEmpleado) {
-        super( nombreEmpleado, apellidoEmpleado, 3);
+//        super( nombreEmpleado, apellidoEmpleado, 3);
         this.cantVentas = 0;
     }
 
