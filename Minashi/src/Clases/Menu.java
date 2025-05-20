@@ -109,39 +109,58 @@ public class Menu {
 
       int seleccionFunc = JOptionPane.showOptionDialog(null, "Que quiere hacer hoy?", "Menu", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcionesFunc, opcionesFunc[0]);
 
-      switch (seleccionFunc) {
-        case 0:
-          if (rol == 1) {
-            UsersRepository usersRepository = new UsersRepository();
-            final ArrayList<Usuario> users = usersRepository.encontrarUsuarios();
-            StringBuilder sb = new StringBuilder();
+        switch (rol) {
+          case 1:
+            return;
+          case 4:
+            if (seleccionFunc == 0) {
 
-            for(Usuario usuario : users) {
-              sb.append(usuario.toString()).append("\n");
+              ArrayList<Usuario> clientes = UsersRepository.encontrarClientes();
+
+              StringBuilder sb = new StringBuilder();
+
+              for (Usuario cliente : clientes) {
+                sb.append(cliente.getCorreo() + " " + cliente.getNombre() + " " + cliente.getApellido() + "\n");
+              }
+
+              JOptionPane.showMessageDialog(null,"Clientes:\n" + sb);
+
+              mostrarFuncionalidades(rol);
+
+
+            } else if (seleccionFunc == 1) {
+
+              ArrayList<Usuario> empleados = UsersRepository.encontrarEmpleados();
+
+              StringBuilder sb = new StringBuilder();
+
+              for(Usuario empleado : empleados) {
+                sb.append(empleado.getCorreo() + " " + empleado.getNombre() + " " + empleado.getApellido() + "\n");
+              }
+
+              JOptionPane.showMessageDialog(null,"Empleados:\n" + sb);
+
+              mostrarFuncionalidades(rol);
+
+            } else if (seleccionFunc == 2) {
+              //Registrar Empleado
+            } else if (seleccionFunc == 3) {
+              String id = JOptionPane.showInputDialog(null, "Insertar ID del usuario a eliminar", "Menu", JOptionPane.DEFAULT_OPTION);
+
+              boolean flag = UsersRepository.eliminarUsuarioID(Integer.parseInt(id));
+
+              if (flag) {
+                JOptionPane.showMessageDialog(null, "Usuario eliminado");
+                mostrarFuncionalidades(rol);
+              } else {
+                JOptionPane.showMessageDialog(null, "Error al eliminar el usuario");
+                mostrarFuncionalidades(rol);
+              }
+
+
+
             }
-
-            JOptionPane.showMessageDialog(null, sb.toString());
-          } else {
-            JOptionPane.showMessageDialog(null, "Minerales: \nCarbon\nPlata\nHierro\nOro\nTopacio\nSafiro");
-          }
-          break;
-        case 1:
-          if (rol == 2) {
-            JOptionPane.showMessageDialog(null, "Solicitar Minerales");
-          } else {
-            JOptionPane.showMessageDialog(null, "Compras: \n22/01/25: Compra de minerales, productos: ");
-          }
-
-          break;
-        case 2:
-          JOptionPane.showMessageDialog(null, "Órdenes en curso");
-          break;
-        case 3:
-          JOptionPane.showMessageDialog(null, "Finalizar proceso de venta");
-          break;
-        default:
-          break;
-      }
+        }
     }
 
     static public String[] asignarOpcionesMenu(int rol){
@@ -149,7 +168,9 @@ public class Menu {
       String[] opcionesVenta = {"Emitir Orden", "Ver Órdenes"};
       String[] opcionesCliente = {"Ver Productos", "Ver Compras"};
       String[] opcionesDeposito = {"Registrar Mineral", "Mostrar Inventario", "Buscar Prodcuto Por ID", "Eliminar Producto", "Actualizar Producto por ID"};
-      String[] opcionesAdmin = {"Mostrar Empleados", "Mostrar Pedidos", "Mostrar Clientes", "Mostrar Minerales", "Eliminar Empleados", "Eliminar MineraLes"};
+      String[] opcionesAdmin = {"Mostrar Clientes", "Mostrar Empleados", "Registrar Empleado", "Eliminar Empleado por ID"};
+
+      //TODO "Mostrar Pedidos", "Mostrar Minerales", "Eliminar MineraLes" (ADMIN)
 
       switch (rol){
         case 1: return opcionesCliente;

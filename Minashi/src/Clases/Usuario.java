@@ -100,8 +100,6 @@ public class Usuario {
       return false;
     }
 
-
-
     try {
 
       password = Encriptador.encriptarPass(password);
@@ -143,7 +141,7 @@ public class Usuario {
           // Venta
           break;
           case 4:
-            // Administrador
+             user = new Administrador(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"));
             break;
               default:
                 break;
