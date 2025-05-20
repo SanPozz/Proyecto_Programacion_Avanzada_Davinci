@@ -1,14 +1,22 @@
 package Clases;
 
 
+import Conexion.Conexion;
 import Repository.UsersRepository;
+import com.mysql.jdbc.Connection;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
+
 public class Menu {
+
+  static Connection conn = Conexion.getInstance().getConnection();
 
 
   static public void iniciarMenu() throws SQLException {
@@ -143,7 +151,66 @@ public class Menu {
               mostrarFuncionalidades(rol);
 
             } else if (seleccionFunc == 2) {
-              //Registrar Empleado
+
+              JTextField nombreField = new JTextField(10);
+              JTextField apellidoField = new JTextField(10);
+              JTextField passField = new JTextField(15);
+              JTextField edadField = new JTextField(5);
+              JTextField correoField = new JTextField(15);
+
+              String[] rolesPosibles = {"2", "3"}; //Ventas, Deposito
+              JComboBox<String> rolBox = new JComboBox<>(rolesPosibles);
+
+              JPanel panelSignIn = new JPanel(new GridLayout(0, 1, 5, 5));
+
+              panelSignIn.add(new JLabel("Nombre:"));
+              panelSignIn.add(nombreField);
+              panelSignIn.add(new JLabel("Apellido:"));
+              panelSignIn.add(apellidoField);
+              panelSignIn.add(new JLabel("Edad:"));
+              panelSignIn.add(edadField);
+              panelSignIn.add(new JLabel("Correo:"));
+              panelSignIn.add(correoField);
+              panelSignIn.add(new JLabel("Password:"));
+              panelSignIn.add(passField);
+              panelSignIn.add(new JLabel("Rol:"));
+              panelSignIn.add(rolBox);
+
+              boolean datosValidos = false;
+
+              while (!datosValidos) {
+
+                int result = JOptionPane.showConfirmDialog(null, panelSignIn,
+                        "Registro de Usuario", JOptionPane.OK_CANCEL_OPTION);
+
+                if (result == JOptionPane.OK_OPTION) {
+
+                  PreparedStatement ps = conn.prepareStatement("INSERT INTO usuarios (nombre, apellido, edad, correo, rol, password) VALUES (?,?,?,?,?,?)");
+                  ps.setString(1, nombreField.getText());
+                  ps.setString(2, apellidoField.getText());
+                  ps.setInt(3, Integer.parseInt(edadField.getText()));
+                  ps.setString(4, correoField.getText());
+                  ps.setString(5, rolBox.getSelectedItem().toString());
+                  ps.setString(6, Encriptador.encriptarPass(passField.getText()));
+
+                  int filasAfectadas = ps.executeUpdate();
+
+                  if (filasAfectadas > 0) {
+                    JOptionPane.showMessageDialog(null,"El Empleado ha sido registrado");
+                    datosValidos = true;
+
+                  } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo registrar el Empleado");
+                    datosValidos = true;
+                  }
+
+                  mostrarFuncionalidades(rol);
+
+                } else {
+                  break;
+                }
+
+              }
             } else if (seleccionFunc == 3) {
               String id = JOptionPane.showInputDialog(null, "Insertar ID del usuario a eliminar", "Menu", JOptionPane.DEFAULT_OPTION);
 
