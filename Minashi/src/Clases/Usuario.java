@@ -71,35 +71,40 @@ public class Usuario {
 
       if (rs.next()) {
 
-        if (rs.getString("correo").equals(mail) && rs.getString("password").equals(pass)) {
+        if (rs.getString("correo").equals(mail) && Encriptador.verificarPass(pass, rs.getString("password"))) {
 
           JOptionPane.showMessageDialog(null, "Iniciaste sesion" + "\nBienvenido " + rs.getString("nombre") + " " + rs.getString("apellido"));
 
-          switch (rs.getInt("rol")) {
-            case 1:
-              return new Cliente(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
+          Usuario user = crearUserPorRol(rs);
 
-            case 2:
-//              Deposito deposito = new Deposito()
-              break;
-          }
-
+          return user;
         }
-
       }
 
     } catch (SQLException e) {
       return null;
     }
-
-
     return null;
   }
 
 
-  static public boolean signUp(String nombre, String apellido, String password, int edad, String correo){
+  static public boolean signUp(String nombre, String apellido, String password, int edad, String correo) throws SQLException {
+
+    if (!Validaciones.validacionEmail(correo)) {
+      JOptionPane.showMessageDialog(null, "El correo es invalido, intenta con otro");
+      return false;
+    }
+
+    if (!Validaciones.validacionPassword(password)) {
+      JOptionPane.showMessageDialog(null, "La contraseña debe tener una logintud de 8 caracteres o mas, una minuscula, una mayuscula, un numero y un caracter especial");
+      return false;
+    }
+
+
 
     try {
+
+      password = Encriptador.encriptarPass(password);
 
       PreparedStatement ps = conn.prepareStatement("INSERT INTO usuarios (nombre, apellido, edad, correo, rol, password) VALUES (?,?,?,?,?,?)");
       ps.setString(1, nombre);
@@ -123,8 +128,43 @@ public class Usuario {
     }
   }
 
+  static public Usuario crearUserPorRol(ResultSet rs) throws SQLException {
+
+    Usuario user = null;
+
+    switch (rs.getInt("rol")) {
+      case 1:
+        user = new Cliente(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
+        break;
+      case 2:
+        // Deposito
+        break;
+        case 3:
+          // Venta
+          break;
+          case 4:
+            // Administrador
+            break;
+              default:
+                break;
+    }
+
+    return user;
+  };
+
 
   public int getRol() {
     return this.rol;
+  }
+
+  @Override
+  public String toString() {
+    return "Usuario{" +
+            "nombre='" + nombre + '\'' +
+            ", apellido='" + apellido + '\'' +
+            ", edad=" + edad +
+            ", correo='" + correo + '\'' +
+            ", rol=" + rol +
+            '}';
   }
 }
