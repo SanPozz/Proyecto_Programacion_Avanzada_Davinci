@@ -35,7 +35,6 @@ public class Menu {
 
           int sendForm = JOptionPane.showConfirmDialog(null, panelLogIn, "Iniciar sesion", JOptionPane.OK_CANCEL_OPTION);
 
-
           if (sendForm == JOptionPane.OK_OPTION) {
 
             Usuario user = Usuario.logIn(mailField.getText(), passwordField.getText());
@@ -52,7 +51,7 @@ public class Menu {
           } else{
 
             flagLogin = true;
-            JOptionPane.showMessageDialog(null, "Cierre de sistema");
+//            JOptionPane.showMessageDialog(null, "Cierre de sistema");
 
           }
 
@@ -90,8 +89,10 @@ public class Menu {
 
           if (result == JOptionPane.OK_OPTION) {
 
-            Usuario.signUp(nombreField.getText(), apellidoField.getText(), passField.getText(), Integer.parseInt(edadField.getText()), correoField.getText());
-            datosValidos = true;
+            boolean flag = Usuario.signUp(nombreField.getText(), apellidoField.getText(), passField.getText(), Integer.parseInt(edadField.getText()), correoField.getText());
+            if (flag) {
+              datosValidos = true;
+            }
 
           } else {
             break;

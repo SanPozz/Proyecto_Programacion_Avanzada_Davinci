@@ -71,17 +71,14 @@ public class Usuario {
 
       if (rs.next()) {
 
-        if (rs.getString("correo").equals(mail) && rs.getString("password").equals(pass)) {
+        if (rs.getString("correo").equals(mail) && Encriptador.verificarPass(pass, rs.getString("password"))) {
 
           JOptionPane.showMessageDialog(null, "Iniciaste sesion" + "\nBienvenido " + rs.getString("nombre") + " " + rs.getString("apellido"));
 
           Usuario user = crearUserPorRol(rs);
 
           return user;
-
-
         }
-
       }
 
     } catch (SQLException e) {
@@ -93,7 +90,21 @@ public class Usuario {
 
   static public boolean signUp(String nombre, String apellido, String password, int edad, String correo) throws SQLException {
 
+    if (!Validaciones.validacionEmail(correo)) {
+      JOptionPane.showMessageDialog(null, "El correo es invalido, intenta con otro");
+      return false;
+    }
+
+    if (!Validaciones.validacionPassword(password)) {
+      JOptionPane.showMessageDialog(null, "La contraseña debe tener una logintud de 8 caracteres o mas, una minuscula, una mayuscula, un numero y un caracter especial");
+      return false;
+    }
+
+
+
     try {
+
+      password = Encriptador.encriptarPass(password);
 
       PreparedStatement ps = conn.prepareStatement("INSERT INTO usuarios (nombre, apellido, edad, correo, rol, password) VALUES (?,?,?,?,?,?)");
       ps.setString(1, nombre);
@@ -125,15 +136,15 @@ public class Usuario {
       case 1:
         user = new Cliente(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
         break;
-
       case 2:
+        // Deposito
         break;
         case 3:
+          // Venta
           break;
           case 4:
+            // Administrador
             break;
-            case 5:
-              break;
               default:
                 break;
     }
