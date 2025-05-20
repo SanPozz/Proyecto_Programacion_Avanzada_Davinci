@@ -42,8 +42,8 @@ public class Cliente extends Usuario{
 
                 
                 Mineral[] arrayMinerales = opciones.toArray(new Mineral[0]);
-                Mineral seleccionado = (Mineral) JOptionPane.showInputDialog(null, "Seleccione un mineral:", "Opciones",
-                        JOptionPane.PLAIN_MESSAGE, null, arrayMinerales, arrayMinerales[0]);
+
+                Mineral seleccionado = (Mineral) JOptionPane.showInputDialog(null, "Seleccione un mineral:", "Opciones", JOptionPane.PLAIN_MESSAGE, null, arrayMinerales, arrayMinerales[0]);
 
                 if (seleccionado != null) {
                     List<Mineral> lista = new ArrayList<>();
@@ -51,7 +51,7 @@ public class Cliente extends Usuario{
                     java.sql.Date fecha = new java.sql.Date(System.currentTimeMillis());
                     double total = calcularPrecio(seleccionado);  
 
-                    PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO ordenesdecompra (destinatario, minerales, fecha, total) VALUES (?, ?, ?, ?)");
+                    PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO  ordenes_de_compra ('idOrden', 'fecha', 'destinatario', 'total') VALUES (?,?,?,?)");
                     insertStmt.setString(1, this.nombre);
                     insertStmt.setString(2, seleccionado.getTipo()); 
                     insertStmt.setDate(3, fecha);
@@ -68,12 +68,13 @@ public class Cliente extends Usuario{
 
         public void verMisOrdenes() {
             try {
-                String sql = "SELECT * FROM ordenesdecompra WHERE destinatario = ?";
+                String sql = "SELECT * FROM ordenes_de_compra WHERE destinatario = ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
                 stmt.setString(1, this.nombre);
                 ResultSet rs = stmt.executeQuery();
 
                 StringBuilder resultado = new StringBuilder();
+
                 while (rs.next()) {
                     resultado.append("Minerales: ").append(rs.getString("minerales")).append("\n").append("Fecha: ").append(rs.getDate("fecha")).append("\n").append("Total: ").append(rs.getDouble("total")).append("\n\n");
                 }
