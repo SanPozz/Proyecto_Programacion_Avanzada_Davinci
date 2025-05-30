@@ -1,4 +1,4 @@
-package Clases;
+package BLL.Clases;
 
 import org.mindrot.jbcrypt.BCrypt;
 

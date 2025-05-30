@@ -1,4 +1,4 @@
-package Clases;
+package BLL.Clases;
 
 public class Validaciones {
 
@@ -38,6 +38,14 @@ public class Validaciones {
 
     return pass.matches(regex);
 
+  }
+
+  static boolean validacionRepeatedPassword(String pass, String repeatedPass) {
+    if (pass.equals(repeatedPass)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }

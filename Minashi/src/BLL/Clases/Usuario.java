@@ -1,6 +1,7 @@
-package Clases;
+package BLL.Clases;
 
-import Conexion.Conexion;
+import DLL.Conexion.Conexion;
+import DLL.Repository.UsersRepository;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -8,10 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static Clases.Menu.iniciarMenu;
-
 public class Usuario {
 
+  private int idUsuario;
   private String nombre;
   private String apellido;
   private int edad;
@@ -19,8 +19,8 @@ public class Usuario {
   private int rol;
   private static Connection conn = Conexion.getInstance().getConnection();
 
-  public Usuario(String nombre, String apellido, int edad, String correo, int rol) {
-
+  public Usuario(int idUsuario, String nombre, String apellido, int edad, String correo, int rol) {
+    this.idUsuario = idUsuario;
     this.nombre = nombre;
     this.apellido = apellido;
     this.edad = edad;
@@ -63,11 +63,11 @@ public class Usuario {
 
   static public Usuario logIn(String mail, String pass) {
 
-    try{
+    System.out.println(mail);
+    System.out.println(pass);
 
-      PreparedStatement ps = conn.prepareStatement("SELECT * FROM Usuarios WHERE correo = ?");
-      ps.setString(1, mail);
-      ResultSet rs = ps.executeQuery();
+    try{
+      ResultSet rs = UsersRepository.encontrarUsuarioMail(mail);
 
       if (rs.next()) {
 
@@ -80,15 +80,15 @@ public class Usuario {
           return user;
         }
       }
+      return null;
 
     } catch (SQLException e) {
       return null;
     }
-    return null;
   }
 
 
-  static public boolean signUp(String nombre, String apellido, String password, int edad, String correo) throws SQLException {
+  static public boolean signUp(String nombre, String apellido, int edad, String correo, String password, String repeatedPass) throws SQLException {
 
     if (!Validaciones.validacionEmail(correo)) {
       JOptionPane.showMessageDialog(null, "El correo es invalido, intenta con otro");
@@ -97,6 +97,11 @@ public class Usuario {
 
     if (!Validaciones.validacionPassword(password)) {
       JOptionPane.showMessageDialog(null, "La contraseña debe tener una logintud de 8 caracteres o mas, una minuscula, una mayuscula, un numero y un caracter especial");
+      return false;
+    }
+
+    if (Validaciones.validacionRepeatedPassword(password, repeatedPass) == false) {
+      JOptionPane.showMessageDialog(null, "Las contrasenas deben coincidir");
       return false;
     }
 
@@ -114,14 +119,11 @@ public class Usuario {
 
       int filas = ps.executeUpdate();
 
-      iniciarMenu();
-
       return filas > 0;
 
     } catch (SQLException e){
       System.out.println("Error: " + e.getMessage() );
       JOptionPane.showMessageDialog(null, "Error al registrarse");
-      iniciarMenu();
       return false;
     }
   }
@@ -132,7 +134,7 @@ public class Usuario {
 
     switch (rs.getInt("rol")) {
       case 1:
-        user = new Cliente(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
+        user = new Cliente(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
         break;
       case 2:
         // Deposito
@@ -141,7 +143,7 @@ public class Usuario {
           // Venta
           break;
           case 4:
-             user = new Administrador(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"));
+             user = new Administrador(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"));
             break;
               default:
                 break;

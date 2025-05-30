@@ -1,4 +1,4 @@
-package Clases;
+package BLL.Clases;
 
 public class Camion {
 

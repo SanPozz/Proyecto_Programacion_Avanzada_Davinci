@@ -1,7 +1,7 @@
-package Repository;
+package DLL.Repository;
 
-import Clases.Usuario;
-import Conexion.Conexion;
+import BLL.Clases.Usuario;
+import DLL.Conexion.Conexion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static Clases.Usuario.crearUserPorRol;
+import static BLL.Clases.Usuario.crearUserPorRol;
 
 
 public class UsersRepository {
@@ -37,6 +37,17 @@ public class UsersRepository {
 
   static public Usuario encontrarUsuarioID() {
     return null;
+  }
+
+  static public ResultSet encontrarUsuarioMail(String mailSearch){
+    try{
+      PreparedStatement ps = conn.prepareStatement("SELECT * FROM usuarios WHERE correo = ?");
+      ps.setString(1, mailSearch);
+      return ps.executeQuery();
+
+    } catch (SQLException e) {
+      return null;
+    }
   }
 
   static public boolean agregarUsuario(Usuario usuario) {
@@ -73,7 +84,7 @@ public class UsersRepository {
       ResultSet rs = ps.executeQuery();
 
       while(rs.next()){
-        empleados.add(new Usuario(rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol")));
+        empleados.add(new Usuario(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol")));
       }
 
       return empleados;

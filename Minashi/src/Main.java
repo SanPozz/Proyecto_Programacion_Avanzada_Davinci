@@ -1,12 +1,13 @@
 
-import java.sql.SQLException;
+import GUI.MenuPrincipal;
 
-import static Clases.Menu.iniciarMenu;
+import java.sql.SQLException;
 
 public class Main {
   public static void main(String[] args) throws SQLException {
 
-    iniciarMenu();
+    MenuPrincipal menuPrincipal = new MenuPrincipal();
+    menuPrincipal.setVisible(true);
 
   }
 
