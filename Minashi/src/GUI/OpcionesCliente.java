@@ -57,6 +57,7 @@ public class OpcionesCliente extends JFrame {
 
       }
     });
+    
 
     JButton btnVerPedidos = new JButton("Ver Pedidos");
     btnVerPedidos.setFont(new Font("Roboto", Font.PLAIN, 16));

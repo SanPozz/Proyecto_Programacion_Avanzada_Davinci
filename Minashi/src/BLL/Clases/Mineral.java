@@ -19,8 +19,16 @@ public class Mineral {
         this.pureza = pureza;
         this.toneladas = toneladas;
     }
+    public Mineral( String tipo, double pureza, double toneladas) {
+        this.tipo = tipo;
+        this.pureza = pureza;
+        this.toneladas = toneladas;
+    }
 
-    public int getIdMineral() {
+    public Mineral(String string, double double1, double double2, int idMineral) {
+		
+	}
+	public int getIdMineral() {
         return idMineral;
     }
 
@@ -75,6 +83,11 @@ public class Mineral {
 
     static public ArrayList<Mineral> ordenarMinerales(ArrayList<Mineral> minerales, String tipo) {
         ArrayList<Mineral> mineralesOrdenados = null;
+        if (tipo.equalsIgnoreCase("tipo")) {
+            mineralesOrdenados = minerales.stream()
+                    .sorted(Comparator.comparing(Mineral::getTipo))
+                    .collect(Collectors.toCollection(ArrayList::new));
+        }
         if (tipo.equalsIgnoreCase("Pureza")) {
             mineralesOrdenados = minerales.stream()
                     .sorted(Comparator.comparing(Mineral::getPureza).reversed())

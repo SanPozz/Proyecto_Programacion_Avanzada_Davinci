@@ -137,7 +137,8 @@ public class Usuario {
         user = new Cliente(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
         break;
       case 2:
-        // Deposito
+          user = new Deposito (rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
+
         break;
         case 3:
           // Venta

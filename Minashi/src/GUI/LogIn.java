@@ -1,6 +1,7 @@
 package GUI;
 
 import BLL.Clases.Cliente;
+import BLL.Clases.Deposito;
 import BLL.Clases.Usuario;
 
 import java.awt.EventQueue;
@@ -76,6 +77,11 @@ public class LogIn extends JFrame {
               op.setVisible(true);
               dispose();
               break;
+            case 2:
+            	OpcionesDeposito op2 = new OpcionesDeposito((Deposito) result);
+                op2.setVisible(true);
+                dispose();
+            	break;
           }
 
         } else {
