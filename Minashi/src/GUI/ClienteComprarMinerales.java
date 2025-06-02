@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class ClienteComprarMinerales extends JFrame {
 
@@ -22,27 +23,20 @@ public class ClienteComprarMinerales extends JFrame {
   public ClienteComprarMinerales(Cliente cliente) {
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setBounds(100, 100, 450, 300);
+    setBounds(100, 100, 900, 445);
     contentPane = new JPanel();
     contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
     setContentPane(contentPane);
 
-    DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nombre", "Pureza", "Toneladas"}, 0);
+    DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nombre", "Pureza", "Toneladas", "Precio por Tonelada"}, 0);
     JTable table = new JTable(model);
-    model.setRowCount(0);
 
     ArrayList<Mineral> minerales = Mineral.mineralesEnStock();
 
-
-
-    for (Mineral mineral : minerales) {
-      System.out.println(mineral);
-      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getTipo(), mineral.getPureza(), mineral.getToneladas()});
-    }
+    imprimirTabla(minerales, model);
 
     JScrollPane scrollPane = new JScrollPane(table);
-    setBounds(100, 100, 720, 445);
 
     contentPane.setLayout(new GridLayout(0, 1, 0, 0));
     contentPane.add(scrollPane);
@@ -61,12 +55,41 @@ public class ClienteComprarMinerales extends JFrame {
     btnNewButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
 
+        if (table.getSelectedRow() == -1) {
+          JOptionPane.showMessageDialog(null, "Por favor, seleccione un mineral de la tabla.");
+        }
+
+        if (table.getSelectedRow() != -1) {
+
+          int idMineral = (int) table.getValueAt(table.getSelectedRow(), 0);
+          String tipo = (String) table.getValueAt(table.getSelectedRow(), 1);
+          double pureza = (double) table.getValueAt(table.getSelectedRow(), 2);
+          double toneladas = (double) table.getValueAt(table.getSelectedRow(), 3);
+          double precioTonelada = (double) table.getValueAt(table.getSelectedRow(), 4);
+
+          Mineral mineralSeleccionado = new Mineral(idMineral, tipo, pureza, toneladas, precioTonelada);
+
+          AnadirAlCarrito anadirAlCarrito = new AnadirAlCarrito(mineralSeleccionado, cliente);
+
+            anadirAlCarrito.setVisible(true);
+
+        }
+
       }
     });
     panel_1.add(btnNewButton);
 
     JButton btnNewButton_1 = new JButton("Ver Carrito");
     panel_1.add(btnNewButton_1);
+    btnNewButton_1.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+
+        CarritoCliente carritoCliente = new CarritoCliente(cliente);
+        carritoCliente.setVisible(true);
+
+
+      }
+    });
 
     JPanel panel_2 = new JPanel();
     panel.add(panel_2);
@@ -85,7 +108,12 @@ public class ClienteComprarMinerales extends JFrame {
 
         ArrayList<Mineral> minerales = Mineral.mineralesPorNombre(textField.getText());
 
-        if (minerales.size() > 0) {
+        if (minerales == null || minerales.size() == 0) {
+          JOptionPane.showMessageDialog(null, "No se encontraron minerales con ese nombre.");
+        }
+
+
+        if (minerales != null && !minerales.isEmpty()) {
           imprimirTabla(minerales, model);
         }
 
@@ -126,8 +154,9 @@ public class ClienteComprarMinerales extends JFrame {
     model.setRowCount(0);
 
     for (Mineral mineral : minerales) {
-      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getTipo(), mineral.getPureza(), mineral.getToneladas()});
+      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getTipo(), mineral.getPureza(), mineral.getToneladas(), mineral.getPrecioTonelada()});
     }
+
 
   }
 

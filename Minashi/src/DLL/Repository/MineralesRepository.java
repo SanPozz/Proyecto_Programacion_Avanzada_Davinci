@@ -19,7 +19,7 @@ public class MineralesRepository {
       ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM minerales");
 
       while(rs.next()){
-        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas")));
+        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada")));
       }
 
       return minerales;
@@ -39,7 +39,7 @@ public class MineralesRepository {
       ResultSet rs = conn.createStatement().executeQuery("SElECT * FROM minerales WHERE nombre LIKE '%" + nombre + "%'");
 
       while(rs.next()){
-        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas")));
+        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada")));
       }
 
       return minerales;
