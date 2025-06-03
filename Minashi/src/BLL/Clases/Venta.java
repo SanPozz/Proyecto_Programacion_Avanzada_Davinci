@@ -1,11 +1,11 @@
 package BLL.Clases;
 
-public class Venta  {
+public class Venta extends Usuario{
 
     int cantVentas;
 
-    public Venta(int idEmpleado, String nombreEmpleado, String apellidoEmpleado) {
-//        super( nombreEmpleado, apellidoEmpleado, 3);
+    public Venta(int idUsuario,String nombre, String apellido, int edad, String correo, int rol, int cantVentas) {
+        super( idUsuario, nombre, apellido, edad, correo, 3);
         this.cantVentas = 0;
     }
 
