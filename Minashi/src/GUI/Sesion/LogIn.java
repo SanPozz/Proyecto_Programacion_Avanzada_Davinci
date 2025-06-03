@@ -1,7 +1,8 @@
-package GUI;
+package GUI.Sesion;
 
 import BLL.Clases.Cliente;
 import BLL.Clases.Usuario;
+import GUI.Cliente.OpcionesCliente;
 
 import java.awt.EventQueue;
 

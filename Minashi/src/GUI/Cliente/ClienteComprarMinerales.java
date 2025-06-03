@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Cliente;
 
 import BLL.Clases.Cliente;
 import BLL.Clases.Mineral;
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 public class ClienteComprarMinerales extends JFrame {
 

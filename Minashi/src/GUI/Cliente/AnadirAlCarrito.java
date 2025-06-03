@@ -1,15 +1,12 @@
-package GUI;
+package GUI.Cliente;
 
 import BLL.Clases.Cliente;
 import BLL.Clases.Mineral;
-
-import java.awt.EventQueue;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 import java.awt.Font;
-import java.awt.BorderLayout;
 
 public class AnadirAlCarrito extends JFrame {
 

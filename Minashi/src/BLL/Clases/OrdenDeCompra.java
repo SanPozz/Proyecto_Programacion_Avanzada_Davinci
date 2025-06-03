@@ -10,6 +10,8 @@ public class OrdenDeCompra {
     private Date fecha;
     private Double total;
 
+
+
     public Cliente getDestinatario() {
         return destinatario;
     }

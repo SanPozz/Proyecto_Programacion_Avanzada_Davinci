@@ -1,5 +1,8 @@
 package GUI;
 
+import GUI.Sesion.LogIn;
+import GUI.Sesion.SignUp;
+
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
