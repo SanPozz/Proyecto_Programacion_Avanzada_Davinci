@@ -1,9 +1,6 @@
-package GUI;
+package GUI.Cliente;
 
 import BLL.Clases.Cliente;
-import BLL.Clases.Usuario;
-
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
