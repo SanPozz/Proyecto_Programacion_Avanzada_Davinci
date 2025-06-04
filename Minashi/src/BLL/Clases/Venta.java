@@ -6,7 +6,7 @@ public class Venta extends Usuario{
 
     public Venta(int idUsuario,String nombre, String apellido, int edad, String correo, int rol, int cantVentas) {
         super( idUsuario, nombre, apellido, edad, correo, 3);
-        this.cantVentas = 0;
+        this.cantVentas = cantVentas;
     }
 
     public int getCantVentas() {
