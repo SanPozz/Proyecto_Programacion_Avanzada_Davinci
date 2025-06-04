@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EditarMineral extends JFrame {
 
@@ -23,7 +25,7 @@ public class EditarMineral extends JFrame {
 
 	public EditarMineral(Mineral mineral) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 620);
+		setBounds(100, 100, 450, 387);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -72,5 +74,21 @@ public class EditarMineral extends JFrame {
 		JButton btnNewButton = new JButton("Editar");
 		btnNewButton.setBounds(31, 264, 89, 23);
 		contentPane.add(btnNewButton);
+		
+		JLabel labelInfo = new JLabel("");
+		labelInfo.setBounds(139, 268, 145, 14);
+		contentPane.add(labelInfo);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mineral.setTipo(inputTipo.getText());
+				mineral.setPureza(Float.parseFloat(inputTipo.getText()));
+				mineral.setToneladas(Float.parseFloat(inputTonelada.getText()));
+				
+				
+				labelInfo.setText(Mineral.EditarMineral(mineral));
+				
+			}
+		});
+		
 	}
 }

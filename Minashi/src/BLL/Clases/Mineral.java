@@ -1,5 +1,6 @@
 package BLL.Clases;
 
+import DLL.Repository.ActualizarMineRepository;
 import DLL.Repository.MineralesRepository;
 
 import java.util.ArrayList;
@@ -101,6 +102,14 @@ public class Mineral {
         }
 
         return mineralesOrdenados;
+    }
+    
+    public static String EditarMineral(Mineral mineral) {
+    	if (mineral.getTipo().isEmpty()||mineral.getPureza()<=0||mineral.getToneladas()<=0) {
+			return "No se pudo editar";
+		} else {
+          return ActualizarMineRepository.editarIdMineral(mineral);
+		}
     }
 
 

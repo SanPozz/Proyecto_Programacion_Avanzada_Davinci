@@ -60,6 +60,7 @@ public class DepositoVerStock extends JFrame {
 	    
 	    JButton btnNewButton = new JButton("Editar Mineral"); //----------------------------------------------
 	    btnNewButton.setBounds(102, 11, 106, 101);
+	    
 	    btnNewButton.addActionListener(e -> {
 	      if (idMineralSelect != null) {
 			EditarMineral editar = new EditarMineral(idMineralSelect);

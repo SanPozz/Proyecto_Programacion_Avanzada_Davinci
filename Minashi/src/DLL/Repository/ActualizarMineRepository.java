@@ -11,8 +11,32 @@ import java.util.ArrayList;
 
 public class ActualizarMineRepository {
 
- private static Connection conn = Conexion.getInstance().getConnection();
+private static Connection conn = Conexion.getInstance().getConnection();
 	 
+ 
+public static String editarIdMineral(Mineral mineral) {
+    
+    try (PreparedStatement statement = (PreparedStatement) conn.prepareStatement("UPDATE `minerales` SET `tipo`= ?, `toneladas`= ?, `pureza`= ? WHERE id = ?")) {
+        statement.setString(1, mineral.getTipo());
+        statement.setDouble(2, mineral.getToneladas());
+        statement.setDouble(3, mineral.getPureza());
+        statement.setInt(4, mineral.getIdMineral());
+
+        int filas = statement.executeUpdate();
+        if (filas > 0) {
+        	 return "Filas actualizadas: " + filas;
+		}
+       
+    } catch (Exception e) {
+        e.printStackTrace();
+        
+    }
+    return "error";
+}
+ 
+ 
+ 
+ 
 	 static public ArrayList<Mineral> actualizarMineral(Mineral mineral){
 		    ArrayList<Mineral> actualizarMineral = new ArrayList<>();
 		    try{
@@ -22,7 +46,9 @@ public class ActualizarMineRepository {
 		    	  actualizarMineral.add(new Mineral(rs.getString("tipo"), rs.getDouble("pureza"), rs.getDouble("toneladas"),rs.getInt(mineral.getIdMineral())));
 		      }
              
-		      
+		     
+				
+			
 		      return actualizarMineral;
 
 		    } catch (SQLException e){
@@ -51,5 +77,5 @@ public class ActualizarMineRepository {
 		    }
 		  }
 	  
-	 
+
 }
