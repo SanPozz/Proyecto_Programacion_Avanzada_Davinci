@@ -17,7 +17,6 @@ public class OpcionesVenta extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTable tableOrdenes;
     private JTextField txtBuscarOrden;
     private Venta venta;
 
@@ -63,9 +62,6 @@ public class OpcionesVenta extends JFrame {
 
         agregarBotones(panelBotones);
 
-        tableOrdenes = new JTable();
-        contentPane.add(new JScrollPane(tableOrdenes), BorderLayout.SOUTH);
-
         actualizarTabla();
 
         setVisible(true);
@@ -105,8 +101,6 @@ public class OpcionesVenta extends JFrame {
             while (rs.next()) {
                 modelo.addRow(new Object[]{rs.getInt("id"), rs.getInt("total"), rs.getInt("peso"), rs.getTimestamp("fecha"), rs.getString("estado")});
             }
-
-            tableOrdenes.setModel(modelo);
 
         } catch (SQLException e) {
             e.printStackTrace();
