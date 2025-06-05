@@ -133,7 +133,7 @@ public class Mineral {
     public static String RegisMineral(Mineral mineral) {
         if (mineral == null ||
             mineral.getNombre() == null || mineral.getNombre().isEmpty() ||mineral.getPureza() <= 0 || mineral.getToneladas() <= 0 ||mineral.getPrecioTonelada() <= 0) {
-            return RegistrarMineRepository.registrarMineral(mineral);
+            return "Error";
         }
 
         return RegistrarMineRepository.registrarMineral(mineral); 
