@@ -25,13 +25,13 @@ public class DepositoVerStock extends JFrame {
 	  
 	public DepositoVerStock(Deposito deposito) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    setBounds(100, 100, 450, 300);
+	    setBounds(100, 100, 720, 781);
 	    contentPane = new JPanel();
 	    contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 	    setContentPane(contentPane);
 
-	    DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nombre", "Pureza", "Toneladas"}, 0);
+	    DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nombre", "Pureza", "Toneladas","PrecioTonelada"}, 0);
 	    
 	    JTable table = new JTable(model);
 	   
@@ -40,7 +40,7 @@ public class DepositoVerStock extends JFrame {
 
 	    for (Mineral mineral : minerales) {
 	      System.out.println(mineral);
-	      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getTipo(), mineral.getPureza(), mineral.getToneladas()});
+	      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getNombre(), mineral.getPureza(), mineral.getToneladas(),mineral.getPrecioTonelada()});
 	    }
 
 	    JScrollPane scrollPane = new JScrollPane(table);
@@ -52,18 +52,19 @@ public class DepositoVerStock extends JFrame {
 	    JPanel panel = new JPanel();
 	    panel.setBorder(new EmptyBorder(10,20,10,20));
 	    contentPane.add(panel);
-	    panel.setLayout(new GridLayout(0, 3, 0, 10));
+	    panel.setLayout(null);
 //----------------------------------------------------------------------------
 	    JPanel panel_1 = new JPanel();
+	    panel_1.setBounds(10, 10, 238, 200);
 	    panel_1.setBorder(new EmptyBorder(20,0,20,0));
 	    panel.add(panel_1);
 	    
-	    JButton btnNewButton = new JButton("Editar Mineral"); //----------------------------------------------
-	    btnNewButton.setBounds(102, 11, 106, 101);
+	    JButton btnNewButton = new JButton("Editar Mineral");
+	    btnNewButton.setBounds(116, 27, 122, 101);
 	    
 	    btnNewButton.addActionListener(e -> {
 	      if (idMineralSelect != null) {
-			EditarMineral editar = new EditarMineral(idMineralSelect);
+			EditarMineral editar = new EditarMineral(idMineralSelect, deposito);
 			editar.setVisible(true);
 			dispose();
 		}else {
@@ -81,24 +82,37 @@ public class DepositoVerStock extends JFrame {
 	                    (int) model.getValueAt(row, 0),
 	                    (String) model.getValueAt(row, 1),
 	                    ((Number) model.getValueAt(row, 2)).floatValue(),
-	                    ((Number) model.getValueAt(row, 3)).floatValue()
+	                    ((Number) model.getValueAt(row, 3)).floatValue(),
+	                    ((Number) model.getValueAt(row, 4)).floatValue()
 	                );
+	              
 	            }
 	        }
 	    });
-	    
 	    panel_1.setLayout(null);
 	    panel_1.add(btnNewButton);
 
 	    JButton btnNewButton_1 = new JButton("Eliminar mineral");
+	    btnNewButton_1.setBounds(0, 27, 122, 101);
 	    btnNewButton_1.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    	}
 	    });
-	    btnNewButton_1.setBounds(0, 11, 106, 101);
 	    panel_1.add(btnNewButton_1);
+	    JButton botonAtras = new JButton("<- VOLVER");
+	    botonAtras.setBounds(0, 139, 112, 29);
+	    panel_1.add(botonAtras);
+	    botonAtras.addActionListener(new ActionListener() {
+	    	public void actionPerformed(ActionEvent e) {
+	    		OpcionesDeposito atras = new OpcionesDeposito(deposito);
+	    		atras.setVisible(true);
+	    		dispose();
+	    		
+	    	}
+	    });
 	  //----------------------------------------------------------------------------
 	    JPanel panel_2 = new JPanel();
+	    panel_2.setBounds(248, 10, 218, 200);
 	    panel.add(panel_2);
 	    panel_2.setBorder(new EmptyBorder(30,30,30,30));
 	    panel_2.setLayout(new GridLayout(0, 1, 0, 0));
@@ -123,12 +137,13 @@ public class DepositoVerStock extends JFrame {
 	    });
 
 	    JPanel panel_3 = new JPanel();
+	    panel_3.setBounds(476, 10, 218, 200);
 	    panel.add(panel_3);
 	    panel_3.setLayout(null);
 
 	    JComboBox comboBox = new JComboBox();
 	    comboBox.setBounds(45, 53, 131, 49);
-	    comboBox.addItem("Tipo");
+	    comboBox.addItem("Nombre");
 	    comboBox.addItem("Toneladas");
 	    comboBox.addItem("Pureza");
 	    panel_3.add(comboBox);
@@ -150,12 +165,13 @@ public class DepositoVerStock extends JFrame {
 	      }
 	    });
   }
+	
 	static public void imprimirTabla(ArrayList<Mineral> minerales, DefaultTableModel model) {
 
 	    model.setRowCount(0);
 
 	    for (Mineral mineral : minerales) {
-	      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getTipo(), mineral.getPureza(), mineral.getToneladas()});
+	      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getNombre(), mineral.getPureza(), mineral.getToneladas(),mineral.getPrecioTonelada()});
 	    }
 	    
 

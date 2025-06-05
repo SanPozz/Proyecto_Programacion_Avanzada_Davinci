@@ -5,32 +5,33 @@ import DLL.Conexion.Conexion;
 import com.mysql.jdbc.PreparedStatement;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 public class RegistrarMineRepository {
 
 	 private static Connection conn = Conexion.getInstance().getConnection();
 	 
-	 static public ArrayList<Mineral> registrarMineral(){
-		    ArrayList<Mineral> registrarMineral = new ArrayList<>();
-		    try{
-		      ResultSet rs = conn.createStatement().executeQuery("INSERT INTO `minerales`(`nombre`, `toneladas`, `pureza`) VALUES (?,?,?)");
+	
+	 public static String registrarMineral(Mineral mineral) {
+		    
+		    try (PreparedStatement statement = (PreparedStatement) conn.prepareStatement("INSERT INTO `minerales`(`nombre`, `toneladas`, `pureza`,`precioTonelada`) VALUES (?,?,?,?)")) {
+		        statement.setString(1, mineral.getNombre());
+		        statement.setDouble(2, mineral.getToneladas());
+		        statement.setDouble(3, mineral.getPureza());
+		        statement.setDouble(4, mineral.getPrecioTonelada());
+		       
 
-		      while(rs.next()){
-		        registrarMineral.add(new Mineral(rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas")));
-		      }
-
-		      return registrarMineral;
-
-		    } catch (SQLException e){
-
-		      e.printStackTrace();
-		      return null;
+		        int filas = statement.executeUpdate();
+		        if (filas > 0) {
+		        	 return "Se registro mineral correctamente";
+				}
+		       
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        
 		    }
-
-		  }
+		    return "error al registrar mineral";
+		}
 	 
 	 
 }

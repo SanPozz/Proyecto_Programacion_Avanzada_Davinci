@@ -28,7 +28,7 @@ public class ClienteComprarMinerales extends JFrame {
 
     setContentPane(contentPane);
 
-    DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nombre", "Pureza", "Toneladas"}, 0);
+    DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nombre", "Pureza", "Toneladas","PrecioTonelada"}, 0);
     JTable table = new JTable(model);
     model.setRowCount(0);
 
@@ -38,7 +38,7 @@ public class ClienteComprarMinerales extends JFrame {
 
     for (Mineral mineral : minerales) {
       System.out.println(mineral);
-      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getTipo(), mineral.getPureza(), mineral.getToneladas()});
+      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getNombre(), mineral.getPureza(), mineral.getToneladas()});
     }
 
     JScrollPane scrollPane = new JScrollPane(table);
@@ -126,7 +126,7 @@ public class ClienteComprarMinerales extends JFrame {
     model.setRowCount(0);
 
     for (Mineral mineral : minerales) {
-      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getTipo(), mineral.getPureza(), mineral.getToneladas()});
+      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getNombre(), mineral.getPureza(), mineral.getToneladas()});
     }
 
   }

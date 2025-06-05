@@ -2,6 +2,7 @@ package BLL.Clases;
 
 import DLL.Repository.ActualizarMineRepository;
 import DLL.Repository.MineralesRepository;
+import DLL.Repository.RegistrarMineRepository;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -10,24 +11,35 @@ import java.util.stream.Collectors;
 public class Mineral {
 
     private int idMineral;
-    private String tipo;
+    private String nombre;
     private double pureza;
     private double toneladas;
+    private double precioTonelada;
 
-    public Mineral(int idMineral, String tipo, double pureza, double toneladas) {
+    public Mineral() {
+    	
+    }
+    
+    public Mineral(int idMineral, String nombre, double pureza, double toneladas,double precioTonelada) {
         this.idMineral = idMineral;
-        this.tipo = tipo;
+        this.nombre = nombre;
         this.pureza = pureza;
         this.toneladas = toneladas;
+        this.precioTonelada=precioTonelada;
     }
-    public Mineral( String tipo, double pureza, double toneladas) {
-        this.tipo = tipo;
+    public Mineral( String nombre, double pureza, double toneladas,double precioTonelada) {
+        this.nombre = nombre;
         this.pureza = pureza;
         this.toneladas = toneladas;
+        this.precioTonelada=precioTonelada;
     }
 
-    public Mineral(String string, double double1, double double2, int idMineral) {
-		
+    public Mineral(String nombre, double pureza, double toneladas,double precioTonelada, int idMineral) {
+    	 this.nombre = nombre;
+         this.pureza = pureza;
+         this.toneladas = toneladas;
+         this.precioTonelada=precioTonelada;
+         
 	}
 	public int getIdMineral() {
         return idMineral;
@@ -37,12 +49,12 @@ public class Mineral {
         this.idMineral = idMineral;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setNombre(String tipo) {
+        this.nombre = tipo;
     }
 
     public double getPureza() {
@@ -61,7 +73,13 @@ public class Mineral {
         this.toneladas = toneladas;
     }
 
-    static public ArrayList<Mineral> mineralesEnStock() {
+    public double getPrecioTonelada() {
+		return precioTonelada;
+	}
+	public void setPrecioTonelada(double precioTonelada) {
+		this.precioTonelada = precioTonelada;
+	}
+	static public ArrayList<Mineral> mineralesEnStock() {
             ArrayList<Mineral> minerales = MineralesRepository.encontrarMinerales();
             ArrayList<Mineral> mineralesEnStock = new ArrayList<Mineral>();
             for (Mineral mineral : minerales) {
@@ -82,20 +100,20 @@ public class Mineral {
         return minerales;
     }
 
-    static public ArrayList<Mineral> ordenarMinerales(ArrayList<Mineral> minerales, String tipo) {
+    static public ArrayList<Mineral> ordenarMinerales(ArrayList<Mineral> minerales, String nombre) {
         ArrayList<Mineral> mineralesOrdenados = null;
-        if (tipo.equalsIgnoreCase("tipo")) {
+        if (nombre.equalsIgnoreCase("nombre")) {
             mineralesOrdenados = minerales.stream()
-                    .sorted(Comparator.comparing(Mineral::getTipo))
+                    .sorted(Comparator.comparing(Mineral::getNombre))
                     .collect(Collectors.toCollection(ArrayList::new));
         }
-        if (tipo.equalsIgnoreCase("Pureza")) {
+        if (nombre.equalsIgnoreCase("Pureza")) {
             mineralesOrdenados = minerales.stream()
                     .sorted(Comparator.comparing(Mineral::getPureza).reversed())
                     .collect(Collectors.toCollection(ArrayList::new));
         }
 
-        if (tipo.equalsIgnoreCase("Toneladas")) {
+        if (nombre.equalsIgnoreCase("Toneladas")) {
             mineralesOrdenados = minerales.stream()
                     .sorted(Comparator.comparing(Mineral::getToneladas).reversed())
                     .collect(Collectors.toCollection(ArrayList::new));
@@ -105,20 +123,27 @@ public class Mineral {
     }
     
     public static String EditarMineral(Mineral mineral) {
-    	if (mineral.getTipo().isEmpty()||mineral.getPureza()<=0||mineral.getToneladas()<=0) {
+    	if (mineral.getNombre().isEmpty()||mineral.getPureza()<=0||mineral.getToneladas()<=0||mineral.getPrecioTonelada()<=0) {
 			return "No se pudo editar";
 		} else {
           return ActualizarMineRepository.editarIdMineral(mineral);
 		}
     }
+    
+    public static String RegisMineral(Mineral mineral) {
+        if (mineral == null ||
+            mineral.getNombre() == null || mineral.getNombre().isEmpty() ||mineral.getPureza() <= 0 || mineral.getToneladas() <= 0 ||mineral.getPrecioTonelada() <= 0) {
+            return RegistrarMineRepository.registrarMineral(mineral);
+        }
 
-
-    @Override
-    public String toString() {
-        return "Mineral{" +
-                "idMineral=" + idMineral +
-                ", tipo='" + tipo + '\'' +
-                ", pureza=" + pureza +
-                '}';
+        return RegistrarMineRepository.registrarMineral(mineral); 
     }
+	@Override
+	public String toString() {
+		return "Mineral [idMineral=" + idMineral + ", nombre=" + nombre + ", pureza=" + pureza + ", toneladas="
+				+ toneladas + ", precioTonelada=" + precioTonelada + "]";
+	}
+
+
+    
 }

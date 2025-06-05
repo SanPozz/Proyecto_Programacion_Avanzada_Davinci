@@ -16,11 +16,12 @@ private static Connection conn = Conexion.getInstance().getConnection();
  
 public static String editarIdMineral(Mineral mineral) {
     
-    try (PreparedStatement statement = (PreparedStatement) conn.prepareStatement("UPDATE `minerales` SET `tipo`= ?, `toneladas`= ?, `pureza`= ? WHERE id = ?")) {
-        statement.setString(1, mineral.getTipo());
+    try (PreparedStatement statement = (PreparedStatement) conn.prepareStatement("UPDATE `minerales` SET `nombre`= ?, `toneladas`= ?, `pureza`= ?, `precioTonelada`= ? WHERE id = ?")) {
+        statement.setString(1, mineral.getNombre());
         statement.setDouble(2, mineral.getToneladas());
         statement.setDouble(3, mineral.getPureza());
-        statement.setInt(4, mineral.getIdMineral());
+        statement.setDouble(4, mineral.getPrecioTonelada());
+        statement.setInt(5, mineral.getIdMineral());
 
         int filas = statement.executeUpdate();
         if (filas > 0) {
@@ -37,27 +38,6 @@ public static String editarIdMineral(Mineral mineral) {
  
  
  
-	 static public ArrayList<Mineral> actualizarMineral(Mineral mineral){
-		    ArrayList<Mineral> actualizarMineral = new ArrayList<>();
-		    try{
-		      ResultSet rs = conn.createStatement().executeQuery("UPDATE `minerales` SET `tipo`= ?,`toneladas`= ?,`pureza`= ? WHERE id = ?");
-
-		      while(rs.next()){
-		    	  actualizarMineral.add(new Mineral(rs.getString("tipo"), rs.getDouble("pureza"), rs.getDouble("toneladas"),rs.getInt(mineral.getIdMineral())));
-		      }
-             
-		     
-				
-			
-		      return actualizarMineral;
-
-		    } catch (SQLException e){
-
-		      e.printStackTrace();
-		      return null;
-		    }
-
-		  }
 	 
 	  static public ArrayList<Mineral> encontrarMineralesPorId(int idMineral){
 		    ArrayList<Mineral> minerales = new ArrayList<>();
@@ -66,7 +46,7 @@ public static String editarIdMineral(Mineral mineral) {
 		      ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM `minerales` WHERE id = ?");
 
 		      while(rs.next()){
-		        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas")));
+		        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"),rs.getDouble("precioTonelada")));
 		      }
 
 		      return minerales;
