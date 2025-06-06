@@ -4,8 +4,6 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,23 +15,17 @@ public class OpcionesVenta extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private JTextField txtBuscarOrden;
+    private JTable tableOrdenes;
     private Venta venta;
+    private JTextField textField; // 🔹 Lo declaramos globalmente
 
     /**
      * Launch the application.
      */
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    Venta venta = new Venta(2, "Sebastián", "Onacht", 23, "seba@gmail.com", 3, 10);
-                    OpcionesVenta frame = new OpcionesVenta(venta);
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
+        EventQueue.invokeLater(() -> {
+            Venta venta = new Venta(2, "Sebastián", "Onacht", 23, "seba@gmail.com", 3, 10);
+            new OpcionesVenta(venta);
         });
     }
 
@@ -43,24 +35,33 @@ public class OpcionesVenta extends JFrame {
     public OpcionesVenta(Venta venta) {
         this.venta = venta;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 600, 400);
+        setBounds(100, 100, 720, 445);
 
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         setContentPane(contentPane);
-        contentPane.setLayout(new BorderLayout());
+        contentPane.setLayout(new GridLayout(0, 1, 0, 0));
 
-        JLabel lblTitulo = new JLabel("Panel de Ventas");
-        lblTitulo.setFont(new Font("Roboto", Font.BOLD, 20));
+        JLabel lblPanel = new JLabel("Panel de Ventas");
+        lblPanel.setFont(new Font("Roboto", Font.BOLD, 24));
+        lblPanel.setHorizontalAlignment(SwingConstants.CENTER);
+        contentPane.add(lblPanel);
+
+        JLabel lblTitulo = new JLabel("Órdenes de Venta");
+        lblTitulo.setFont(new Font("Dialog", Font.BOLD, 18));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-        contentPane.add(lblTitulo, BorderLayout.NORTH);
+        contentPane.add(lblTitulo);
 
-        JPanel panelBotones = new JPanel();
-        panelBotones.setBorder(new EmptyBorder(20, 10, 20, 10));
-        panelBotones.setLayout(new GridLayout(0, 2, 15, 15));
-        contentPane.add(panelBotones, BorderLayout.CENTER);
+        tableOrdenes = new JTable();
+        JScrollPane scrollPane = new JScrollPane(tableOrdenes);
+        contentPane.add(scrollPane);
 
-        agregarBotones(panelBotones);
+        JPanel panel = new JPanel();
+        panel.setBorder(new EmptyBorder(10, 20, 10, 20));
+        panel.setLayout(new GridLayout(0, 3, 10, 10)); // 🔹 Asegura alineación correcta
+        contentPane.add(panel);
+
+        agregarBotones(panel);
 
         actualizarTabla();
 
@@ -68,11 +69,6 @@ public class OpcionesVenta extends JFrame {
     }
 
     private void agregarBotones(JPanel panel) {
-        JButton btnVerOrdenes = new JButton("Ver Órdenes");
-        btnVerOrdenes.setFont(new Font("Roboto", Font.PLAIN, 16));
-        btnVerOrdenes.addActionListener(e -> actualizarTabla());
-        panel.add(btnVerOrdenes);
-
         JButton btnSolicitarStock = new JButton("Solicitar Stock");
         btnSolicitarStock.setFont(new Font("Roboto", Font.PLAIN, 16));
         btnSolicitarStock.addActionListener(e -> solicitarStock());
@@ -82,8 +78,26 @@ public class OpcionesVenta extends JFrame {
         btnFinalizarOrden.setFont(new Font("Roboto", Font.PLAIN, 16));
         btnFinalizarOrden.addActionListener(e -> finalizarVenta());
         panel.add(btnFinalizarOrden);
+
+        // 🔹 Panel para el campo de texto y el botón Buscar (alineados verticalmente)
+        JPanel panelBuscar = new JPanel(new GridLayout(0, 1, 0, 5));
+        panel.add(panelBuscar);
+
+        // Campo de texto para búsqueda de órdenes
+        textField = new JTextField();
+        textField.setColumns(10);
+        panelBuscar.add(textField);
+
+        // Botón Buscar
+        JButton btnBuscarOrden = new JButton("Buscar");
+        btnBuscarOrden.setFont(new Font("Roboto", Font.PLAIN, 16));
+        panelBuscar.add(btnBuscarOrden);
+
+        // Acción para buscar orden al presionar el botón
+        btnBuscarOrden.addActionListener(e -> buscarOrdenPorID(textField.getText()));
     }
 
+    // 🔹 Método para actualizar la tabla con órdenes desde la base de datos
     private void actualizarTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID");
@@ -102,12 +116,15 @@ public class OpcionesVenta extends JFrame {
                 modelo.addRow(new Object[]{rs.getInt("id"), rs.getInt("total"), rs.getInt("peso"), rs.getTimestamp("fecha"), rs.getString("estado")});
             }
 
+            tableOrdenes.setModel(modelo);
+
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Error al obtener órdenes.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
+    // 🔹 Método para solicitar stock
     private void solicitarStock() {
         String idMineral = JOptionPane.showInputDialog(this, "Ingrese ID del mineral:");
         String cantidad = JOptionPane.showInputDialog(this, "Ingrese toneladas:");
@@ -120,6 +137,7 @@ public class OpcionesVenta extends JFrame {
         }
     }
 
+    // 🔹 Método para finalizar una orden
     private void finalizarVenta() {
         String idOrden = JOptionPane.showInputDialog(this, "Ingrese ID de la orden a finalizar:");
 
@@ -128,6 +146,33 @@ public class OpcionesVenta extends JFrame {
             actualizarTabla();
             JOptionPane.showMessageDialog(this, "Orden finalizada correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    // 🔹 Método para buscar una orden por ID
+    private void buscarOrdenPorID(String idOrden) {
+        try {
+            int idBuscado = Integer.parseInt(idOrden);
+
+            try (Connection con = Conexion.getInstance().getConnection();
+                 PreparedStatement stmt = con.prepareStatement("SELECT id, total, peso, fecha, estado FROM ordenes WHERE id = ?")) {
+
+                stmt.setInt(1, idBuscado);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    JOptionPane.showMessageDialog(this, "Orden encontrada:\nID: " + rs.getInt("id") +
+                            "\nTotal: " + rs.getInt("total") +
+                            "\nPeso: " + rs.getInt("peso") +
+                            "\nFecha: " + rs.getTimestamp("fecha") +
+                            "\nEstado: " + rs.getString("estado"), "Resultado", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Orden no encontrada.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        } catch (NumberFormatException | SQLException e) {
             JOptionPane.showMessageDialog(this, "Ingrese un ID válido.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
