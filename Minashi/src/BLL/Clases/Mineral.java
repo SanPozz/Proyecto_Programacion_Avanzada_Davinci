@@ -2,7 +2,7 @@ package BLL.Clases;
 
 import DLL.Repository.ActualizarMineRepository;
 import DLL.Repository.MineralesRepository;
-import DLL.Repository.RegistrarMineRepository;
+
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -130,13 +130,15 @@ public class Mineral {
 		}
     }
     
+    
+    
     public static String RegisMineral(Mineral mineral) {
         if (mineral == null ||
             mineral.getNombre() == null || mineral.getNombre().isEmpty() ||mineral.getPureza() <= 0 || mineral.getToneladas() <= 0 ||mineral.getPrecioTonelada() <= 0) {
             return "Error";
         }
 
-        return RegistrarMineRepository.registrarMineral(mineral); 
+        return MineralesRepository.registrarMineral(mineral); 
     }
 	@Override
 	public String toString() {

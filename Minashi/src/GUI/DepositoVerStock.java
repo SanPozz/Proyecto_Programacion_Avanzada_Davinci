@@ -2,6 +2,7 @@ package GUI;
 
 import BLL.Clases.Deposito;
 import BLL.Clases.Mineral;
+import DLL.Repository.ActualizarMineRepository;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -74,6 +75,22 @@ public class DepositoVerStock extends JFrame {
 	      }
 	    );
 	    
+	   
+	    panel_1.setLayout(null);
+	    panel_1.add(btnNewButton);
+
+	    JButton btnNewButton_1 = new JButton("Eliminar mineral");
+	    btnNewButton_1.setBounds(0, 27, 122, 101);
+	    btnNewButton_1.addActionListener(e-> {
+	    	 if (idMineralSelect != null) {
+	    		 ActualizarMineRepository.eliminarMineral(idMineralSelect);
+	    		 String mensajeResul =  ActualizarMineRepository.eliminarMineral(idMineralSelect);
+	    		 JOptionPane.showMessageDialog(this, mensajeResul,"Resultado de la Eliminación", JOptionPane.INFORMATION_MESSAGE);
+	    		 
+			} else {
+				JOptionPane.showMessageDialog(btnNewButton, "Seleccione un mineral");
+			}
+	    });
 	    table.getSelectionModel().addListSelectionListener(e -> {
 	        if (!e.getValueIsAdjusting()) {
 	            int row = table.getSelectedRow();
@@ -88,15 +105,6 @@ public class DepositoVerStock extends JFrame {
 	              
 	            }
 	        }
-	    });
-	    panel_1.setLayout(null);
-	    panel_1.add(btnNewButton);
-
-	    JButton btnNewButton_1 = new JButton("Eliminar mineral");
-	    btnNewButton_1.setBounds(0, 27, 122, 101);
-	    btnNewButton_1.addActionListener(new ActionListener() {
-	    	public void actionPerformed(ActionEvent e) {
-	    	}
 	    });
 	    panel_1.add(btnNewButton_1);
 	    JButton botonAtras = new JButton("<- VOLVER");

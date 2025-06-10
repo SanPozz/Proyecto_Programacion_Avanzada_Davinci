@@ -8,7 +8,8 @@ import javax.swing.border.EmptyBorder;
 
 import BLL.Clases.Deposito;
 import BLL.Clases.Mineral;
-import DLL.Repository.RegistrarMineRepository;
+import DLL.Repository.MineralesRepository;
+
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -96,7 +97,7 @@ public class RegistrarMineral extends JFrame {
 				
 				
 				
-				 String msg = RegistrarMineRepository.registrarMineral(nuevo);
+				 String msg = MineralesRepository.registrarMineral(mineral);
 	                JOptionPane.showMessageDialog(this, msg);
 	               
 	            } catch (Exception ex) {
