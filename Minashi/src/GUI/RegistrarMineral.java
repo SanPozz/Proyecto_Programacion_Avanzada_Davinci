@@ -97,7 +97,7 @@ public class RegistrarMineral extends JFrame {
 				
 				
 				
-				 String msg = MineralesRepository.registrarMineral(mineral);
+				 String msg = MineralesRepository.registrarMineral(nuevo);
 	                JOptionPane.showMessageDialog(this, msg);
 	               
 	            } catch (Exception ex) {

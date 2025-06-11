@@ -58,7 +58,7 @@ public class MineralesRepository {
 	        statement.setDouble(3, mineral.getPureza());
 	        statement.setDouble(4, mineral.getPrecioTonelada());
 	       
-
+	        System.out.println("Nombre del mineral: " + mineral.getNombre());
 	        int filas = statement.executeUpdate();
 	        if (filas > 0) {
 	        	 return "Se registro mineral correctamente";
