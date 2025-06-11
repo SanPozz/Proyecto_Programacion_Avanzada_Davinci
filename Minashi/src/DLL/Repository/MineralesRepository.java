@@ -19,7 +19,9 @@ public class MineralesRepository {
       ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM minerales");
 
       while(rs.next()){
+
         minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada")));
+
       }
 
       return minerales;
@@ -57,7 +59,9 @@ public class MineralesRepository {
       ResultSet rs = conn.createStatement().executeQuery("SElECT * FROM minerales WHERE nombre LIKE '%" + nombre + "%'");
 
       while(rs.next()){
+
         minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada")));
+
       }
 
       return minerales;
@@ -67,5 +71,26 @@ public class MineralesRepository {
       return null;
     }
   }
+  
+  public static String registrarMineral(Mineral mineral) {
+	    
+	    try (PreparedStatement statement = (PreparedStatement) conn.prepareStatement("INSERT INTO `minerales`(`nombre`, `toneladas`, `pureza`,`precioTonelada`) VALUES (?,?,?,?)")) {
+	        statement.setString(1, mineral.getNombre());
+	        statement.setDouble(2, mineral.getToneladas());
+	        statement.setDouble(3, mineral.getPureza());
+	        statement.setDouble(4, mineral.getPrecioTonelada());
+	       
+	        System.out.println("Nombre del mineral: " + mineral.getNombre());
+	        int filas = statement.executeUpdate();
+	        if (filas > 0) {
+	        	 return "Se registro mineral correctamente";
+			}
+	       
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        
+	    }
+	    return "error al registrar mineral";
+	}
 
 }

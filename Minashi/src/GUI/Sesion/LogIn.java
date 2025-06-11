@@ -2,9 +2,11 @@ package GUI.Sesion;
 
 import BLL.Clases.Cliente;
 import BLL.Clases.Usuario;
+
 import BLL.Clases.Venta;
 import GUI.Cliente.OpcionesCliente;
 import GUI.OpcionesVenta;
+
 
 import java.awt.EventQueue;
 
@@ -110,7 +112,7 @@ public class LogIn extends JFrame {
     lblNewLabel.setBounds(116, 50, 154, 14);
     contentPane.add(lblNewLabel);
 
-    JLabel lblContrasea = new JLabel("Contraseña");
+    JLabel lblContrasea = new JLabel("Contrase�a");
     lblContrasea.setFont(new Font("Roboto", Font.PLAIN, 14));
     lblContrasea.setBounds(116, 126, 87, 14);
     contentPane.add(lblContrasea);
