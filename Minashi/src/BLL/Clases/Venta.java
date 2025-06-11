@@ -8,19 +8,9 @@ import DLL.Conexion.Conexion;
 
 public class Venta extends Usuario {
 
-    int cantVentas;
 
-    public Venta(int idUsuario, String nombre, String apellido, int edad, String correo, int rol, int cantVentas) {
+    public Venta(int idUsuario, String nombre, String apellido, int edad, String correo, int rol) {
         super(idUsuario, nombre, apellido, edad, correo, 3);
-        this.cantVentas = cantVentas;
-    }
-
-    public int getCantVentas() {
-        return cantVentas;
-    }
-
-    public void setCantVentas(int cantVentas) {
-        this.cantVentas = cantVentas;
     }
 
     // Método para ver órdenes del usuario
@@ -93,7 +83,12 @@ public class Venta extends Usuario {
     @Override
     public String toString() {
         return "Venta{" +
-                "cantVentas=" + cantVentas +
+                "idUsuario=" + getIdUsuario() +
+                ", nombre='" + getNombre() + '\'' +
+                ", apellido='" + getApellido() + '\'' +
+                ", edad=" + getEdad() +
+                ", correo='" + getCorreo() + '\'' +
+                ", rol=" + getRol() +
                 '}';
     }
 }

@@ -2,7 +2,9 @@ package GUI.Sesion;
 
 import BLL.Clases.Cliente;
 import BLL.Clases.Usuario;
+import BLL.Clases.Venta;
 import GUI.Cliente.OpcionesCliente;
+import GUI.OpcionesVenta;
 
 import java.awt.EventQueue;
 
@@ -69,6 +71,8 @@ public class LogIn extends JFrame {
       public void actionPerformed(ActionEvent e) {
         Usuario result = Usuario.logIn(textField.getText(), textField_1.getText());
 
+        System.out.println(result);
+
         if (result != null) {
 
           switch (result.getRol()){
@@ -77,6 +81,13 @@ public class LogIn extends JFrame {
               op.setVisible(true);
               dispose();
               break;
+            case 3:
+
+              OpcionesVenta opVenta = new OpcionesVenta((Venta) result);
+                opVenta.setVisible(true);
+                dispose();
+              break;
+
           }
 
         } else {

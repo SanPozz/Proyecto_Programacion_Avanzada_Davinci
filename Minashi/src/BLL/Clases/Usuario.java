@@ -149,7 +149,7 @@ public class Usuario {
         // Deposito
         break;
         case 3:
-          // Venta
+            user = new Venta(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
           break;
           case 4:
              user = new Administrador(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"));

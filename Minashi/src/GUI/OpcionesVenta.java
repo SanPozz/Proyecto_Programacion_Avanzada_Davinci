@@ -22,12 +22,6 @@ public class OpcionesVenta extends JFrame {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            Venta venta = new Venta(2, "Sebastián", "Onacht", 23, "seba@gmail.com", 3, 10);
-            new OpcionesVenta(venta);
-        });
-    }
 
     /**
      * Create the frame.
