@@ -83,9 +83,8 @@ public class DepositoVerStock extends JFrame {
 	    btnNewButton_1.setBounds(0, 27, 122, 101);
 	    btnNewButton_1.addActionListener(e-> {
 	    	 if (idMineralSelect != null) {
-	    		 ActualizarMineRepository.eliminarMineral(idMineralSelect);
-	    		 String mensajeResul =  ActualizarMineRepository.eliminarMineral(idMineralSelect);
-	    		 JOptionPane.showMessageDialog(this, mensajeResul,"Resultado de la Eliminación", JOptionPane.INFORMATION_MESSAGE);
+	    		 String mensajeResul = ActualizarMineRepository.eliminarMineral(idMineralSelect);
+	    		 JOptionPane.showMessageDialog(this, mensajeResul, "Resultado de la EliminaciÃ³n", JOptionPane.INFORMATION_MESSAGE);
 	    		 
 			} else {
 				JOptionPane.showMessageDialog(btnNewButton, "Seleccione un mineral");
