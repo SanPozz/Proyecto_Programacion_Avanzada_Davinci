@@ -35,6 +35,11 @@ public class Cliente extends Usuario{
         return total;
     }
 
+    public ArrayList<OrdenDeCompra> encontrarOrdenes() {
+        ArrayList<OrdenDeCompra> ordenes = OrdenDeCompra.buscarPorId(getIdUsuario());
+        return ordenes;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
