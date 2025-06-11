@@ -12,13 +12,16 @@ public class Mineral {
     private String tipo;
     private double pureza;
     private double toneladas;
+    private double precioTonelada;
 
-    public Mineral(int idMineral, String tipo, double pureza, double toneladas) {
+    public Mineral(int idMineral, String tipo, double pureza, double toneladas, double precioTonelada) {
         this.idMineral = idMineral;
         this.tipo = tipo;
         this.pureza = pureza;
         this.toneladas = toneladas;
+        this.precioTonelada = precioTonelada;
     }
+
 
     public int getIdMineral() {
         return idMineral;
@@ -50,6 +53,14 @@ public class Mineral {
 
     public void setToneladas(double toneladas) {
         this.toneladas = toneladas;
+    }
+
+    public double getPrecioTonelada() {
+        return precioTonelada;
+    }
+
+    public void setPrecioTonelada(double precioTonelada) {
+        this.precioTonelada = precioTonelada;
     }
 
     static public ArrayList<Mineral> mineralesEnStock() {
@@ -91,12 +102,15 @@ public class Mineral {
     }
 
 
+
+
     @Override
     public String toString() {
         return "Mineral{" +
                 "idMineral=" + idMineral +
                 ", tipo='" + tipo + '\'' +
                 ", pureza=" + pureza +
+                ", toneladas=" + toneladas +
                 '}';
     }
 }

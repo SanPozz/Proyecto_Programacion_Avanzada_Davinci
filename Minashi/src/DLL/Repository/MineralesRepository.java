@@ -19,7 +19,7 @@ public class MineralesRepository {
       ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM minerales");
 
       while(rs.next()){
-        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas")));
+        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada")));
       }
 
       return minerales;
@@ -32,6 +32,24 @@ public class MineralesRepository {
 
   }
 
+  static public Mineral encontrarMineralPorId(int id){
+    try {
+      PreparedStatement ps = (PreparedStatement) conn.prepareStatement("SELECT * FROM minerales WHERE id = ?");
+      ps.setInt(1, id);
+      ResultSet rs = ps.executeQuery();
+
+      if(rs.next()){
+        return new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada"));
+      } else {
+        return null;
+      }
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
   static public ArrayList<Mineral> encontrarMineralesPorNombre(String nombre){
     ArrayList<Mineral> minerales = new ArrayList<>();
 
@@ -39,7 +57,7 @@ public class MineralesRepository {
       ResultSet rs = conn.createStatement().executeQuery("SElECT * FROM minerales WHERE nombre LIKE '%" + nombre + "%'");
 
       while(rs.next()){
-        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas")));
+        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada")));
       }
 
       return minerales;
