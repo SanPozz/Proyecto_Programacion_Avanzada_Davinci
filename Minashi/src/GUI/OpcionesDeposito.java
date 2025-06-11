@@ -49,8 +49,7 @@ public class OpcionesDeposito extends JFrame{
 		JButton btnNewButton_1 = new JButton("REGIS MINERAL");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Mineral nuevo = new Mineral();
-				RegistrarMineral reMin = new RegistrarMineral(nuevo, deposito);
+				RegistrarMineral reMin = new RegistrarMineral(deposito);
 				reMin.setVisible(true);
 				dispose();
 			}

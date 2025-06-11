@@ -1,10 +1,12 @@
 package GUI.Sesion;
 
 import BLL.Clases.Cliente;
+import BLL.Clases.Deposito;
 import BLL.Clases.Usuario;
 
 import BLL.Clases.Venta;
 import GUI.Cliente.OpcionesCliente;
+import GUI.OpcionesDeposito;
 import GUI.OpcionesVenta;
 
 
@@ -83,6 +85,11 @@ public class LogIn extends JFrame {
               op.setVisible(true);
               dispose();
               break;
+            case 2:
+              OpcionesDeposito opDep = new OpcionesDeposito((Deposito) result);
+              opDep.setVisible(true);
+                dispose();
+                break;
             case 3:
 
               OpcionesVenta opVenta = new OpcionesVenta((Venta) result);

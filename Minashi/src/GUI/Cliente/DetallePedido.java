@@ -59,7 +59,7 @@ public class DetallePedido extends JFrame {
 
     for (Mineral mineral : minerales) {
       JLabel lblMineral = new JLabel();
-      lblMineral.setText("Mineral: " + mineral.getTipo() + ", Pureza: " + mineral.getPureza() + ", Toneladas: " + mineral.getToneladas());
+      lblMineral.setText("Mineral: " + mineral.getNombre() + ", Pureza: " + mineral.getPureza() + ", Toneladas: " + mineral.getToneladas());
       lblMineral.setFont(new Font("Roboto", Font.PLAIN, 16));
       panelMinerales.add(lblMineral);
     }

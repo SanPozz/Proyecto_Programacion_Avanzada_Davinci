@@ -106,7 +106,7 @@ public class CarritoCliente extends JFrame {
     model.setRowCount(0);
 
     for (Mineral mineral : minerales) {
-      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getTipo(), mineral.getPureza(), mineral.getToneladas(), mineral.getPrecioTonelada()});
+      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getNombre(), mineral.getPureza(), mineral.getToneladas(), mineral.getPrecioTonelada()});
     }
 
 

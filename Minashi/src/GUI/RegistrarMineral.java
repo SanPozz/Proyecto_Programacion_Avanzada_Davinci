@@ -32,7 +32,7 @@ public class RegistrarMineral extends JFrame {
 
 
 	
-	public RegistrarMineral(Mineral mineral,Deposito deposito) {
+	public RegistrarMineral(Deposito deposito) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 490);
 		contentPane = new JPanel();
@@ -112,7 +112,7 @@ public class RegistrarMineral extends JFrame {
 		info.setBounds(251, 372, 157, 14);
 		contentPane.add(info);
 		
-		info.setText(Mineral.RegisMineral(mineral));
+//		info.setText(Mineral.RegisMineral(mineral));
 		JButton btnNewButton = new JButton("VOLVER");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -56,7 +56,7 @@ public class AnadirAlCarrito extends JFrame {
           System.out.println();
           cliente.anadirAlCarrito(new Mineral(
               mineral.getIdMineral(),
-              mineral.getTipo(),
+              mineral.getNombre(),
               mineral.getPureza(),
               cantidad,
               mineral.getPrecioTonelada()
@@ -90,7 +90,7 @@ public class AnadirAlCarrito extends JFrame {
     lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
     panel_1.add(lblNewLabel_1);
 
-    JLabel lblNewLabel_2 = new JLabel("Tipo: " + mineral.getTipo());
+    JLabel lblNewLabel_2 = new JLabel("Tipo: " + mineral.getNombre());
     lblNewLabel_2.setFont(new Font("Roboto", Font.PLAIN, 14));
     lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
     panel_1.add(lblNewLabel_2);
