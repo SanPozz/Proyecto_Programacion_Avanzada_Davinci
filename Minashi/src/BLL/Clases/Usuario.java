@@ -29,6 +29,15 @@ public class Usuario {
 
   }
 
+  public int getIdUsuario() {
+
+	    return idUsuario;
+	}
+
+  public void setIdUsuario(int idUsuario) {
+    this.idUsuario = idUsuario;
+  }
+
   public String getNombre() {
     return nombre;
   }
@@ -141,7 +150,7 @@ public class Usuario {
 
         break;
         case 3:
-          // Venta
+            user = new Venta(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
           break;
           case 4:
              user = new Administrador(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"));

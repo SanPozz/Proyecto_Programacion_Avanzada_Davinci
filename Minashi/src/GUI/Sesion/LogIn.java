@@ -1,8 +1,12 @@
-package GUI;
+package GUI.Sesion;
 
 import BLL.Clases.Cliente;
 import BLL.Clases.Usuario;
+
+import BLL.Clases.Venta;
 import GUI.Cliente.OpcionesCliente;
+import GUI.OpcionesVenta;
+
 
 import java.awt.EventQueue;
 
@@ -69,6 +73,8 @@ public class LogIn extends JFrame {
       public void actionPerformed(ActionEvent e) {
         Usuario result = Usuario.logIn(textField.getText(), textField_1.getText());
 
+        System.out.println(result);
+
         if (result != null) {
 
           switch (result.getRol()){
@@ -77,6 +83,13 @@ public class LogIn extends JFrame {
               op.setVisible(true);
               dispose();
               break;
+            case 3:
+
+              OpcionesVenta opVenta = new OpcionesVenta((Venta) result);
+                opVenta.setVisible(true);
+                dispose();
+              break;
+
           }
 
         } else {
@@ -99,7 +112,7 @@ public class LogIn extends JFrame {
     lblNewLabel.setBounds(116, 50, 154, 14);
     contentPane.add(lblNewLabel);
 
-    JLabel lblContrasea = new JLabel("Contraseña");
+    JLabel lblContrasea = new JLabel("Contraseï¿½a");
     lblContrasea.setFont(new Font("Roboto", Font.PLAIN, 14));
     lblContrasea.setBounds(116, 126, 87, 14);
     contentPane.add(lblContrasea);

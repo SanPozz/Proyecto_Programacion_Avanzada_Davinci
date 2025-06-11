@@ -16,15 +16,13 @@ public class Mineral {
     private double toneladas;
     private double precioTonelada;
 
-    public Mineral() {
-    	
-    }
-    
-    public Mineral(int idMineral, String nombre, double pureza, double toneladas,double precioTonelada) {
+
+    public Mineral(int idMineral, String nombre, double pureza, double toneladas, double precioTonelada) {
         this.idMineral = idMineral;
         this.nombre = nombre;
         this.pureza = pureza;
         this.toneladas = toneladas;
+
         this.precioTonelada=precioTonelada;
     }
     public Mineral( String nombre, double pureza, double toneladas,double precioTonelada) {
@@ -34,14 +32,7 @@ public class Mineral {
         this.precioTonelada=precioTonelada;
     }
 
-    public Mineral(String nombre, double pureza, double toneladas,double precioTonelada, int idMineral) {
-    	 this.nombre = nombre;
-         this.pureza = pureza;
-         this.toneladas = toneladas;
-         this.precioTonelada=precioTonelada;
-         
-	}
-	public int getIdMineral() {
+    public int getIdMineral() {
         return idMineral;
     }
 
@@ -74,12 +65,15 @@ public class Mineral {
     }
 
     public double getPrecioTonelada() {
-		return precioTonelada;
-	}
-	public void setPrecioTonelada(double precioTonelada) {
-		this.precioTonelada = precioTonelada;
-	}
-	static public ArrayList<Mineral> mineralesEnStock() {
+
+        return precioTonelada;
+    }
+
+    public void setPrecioTonelada(double precioTonelada) {
+        this.precioTonelada = precioTonelada;
+    }
+
+    static public ArrayList<Mineral> mineralesEnStock() {
             ArrayList<Mineral> minerales = MineralesRepository.encontrarMinerales();
             ArrayList<Mineral> mineralesEnStock = new ArrayList<Mineral>();
             for (Mineral mineral : minerales) {
@@ -129,8 +123,19 @@ public class Mineral {
           return ActualizarMineRepository.editarIdMineral(mineral);
 		}
     }
-    
-    
+
+
+    @Override
+    public String toString() {
+        return "Mineral{" +
+                "idMineral=" + idMineral +
+                ", tipo='" + nombre + '\'' +
+                ", pureza=" + pureza +
+                ", toneladas=" + toneladas +
+                '}';
+
+    }
+
     
     public static String RegisMineral(Mineral mineral) {
         if (mineral == null ||
@@ -140,12 +145,5 @@ public class Mineral {
 
         return MineralesRepository.registrarMineral(mineral); 
     }
-	@Override
-	public String toString() {
-		return "Mineral [idMineral=" + idMineral + ", nombre=" + nombre + ", pureza=" + pureza + ", toneladas="
-				+ toneladas + ", precioTonelada=" + precioTonelada + "]";
-	}
 
-
-    
 }

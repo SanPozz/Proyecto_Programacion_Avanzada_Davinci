@@ -1,5 +1,6 @@
 package DLL.Repository;
 
+import BLL.Clases.Cliente;
 import BLL.Clases.Usuario;
 import DLL.Conexion.Conexion;
 
@@ -36,7 +37,20 @@ public class UsersRepository {
   }
 
   static public Usuario encontrarUsuarioID() {
-    return null;
+    try {
+      PreparedStatement ps = conn.prepareStatement("SELECT * FROM usuarios WHERE id = ?");
+      ps.setInt(1, 1); // Cambiar el ID según sea necesario
+      ResultSet rs = ps.executeQuery();
+
+      if(rs.next()){
+        return crearUserPorRol(rs);
+      } else {
+        return null;
+      }
+
+    } catch (SQLException e) {
+      return null;
+    }
   }
 
   static public ResultSet encontrarUsuarioMail(String mailSearch){
@@ -117,4 +131,21 @@ public class UsersRepository {
 
   }
 
+  public static Cliente encontrarClienteID(int id) {
+    try {
+      PreparedStatement ps = conn.prepareStatement("SELECT * FROM usuarios WHERE id = ? AND rol = ?");
+      ps.setInt(1, id);
+        ps.setString(2, "1");
+      ResultSet rs = ps.executeQuery();
+
+      if(rs.next()){
+        return new Cliente(rs.getInt("id"), rs.getString("nombre"), rs.getString("apellido"), rs.getInt("edad"), rs.getString("correo"), rs.getInt("rol"));
+      } else {
+        return null;
+      }
+
+    } catch (SQLException e) {
+      return null;
+    }
+  }
 }
