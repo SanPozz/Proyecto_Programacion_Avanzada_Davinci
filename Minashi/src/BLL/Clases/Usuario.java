@@ -30,8 +30,9 @@ public class Usuario {
   }
 
   public int getIdUsuario() {
-    return idUsuario;
-  }
+
+	    return idUsuario;
+	}
 
   public void setIdUsuario(int idUsuario) {
     this.idUsuario = idUsuario;
