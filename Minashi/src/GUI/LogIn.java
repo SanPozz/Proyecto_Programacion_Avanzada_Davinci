@@ -1,8 +1,8 @@
 package GUI;
 
 import BLL.Clases.Cliente;
-import BLL.Clases.Deposito;
 import BLL.Clases.Usuario;
+import GUI.Cliente.OpcionesCliente;
 
 import java.awt.EventQueue;
 
@@ -16,17 +16,33 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JPasswordField;
 
 public class LogIn extends JFrame {
 
   private static final long serialVersionUID = 1L;
   private JPanel contentPane;
   private JTextField textField;
-  private JPasswordField passwordField;
+  private JTextField textField_1;
 
+  /**
+   * Launch the application.
+   */
+  public static void main(String[] args) {
+    EventQueue.invokeLater(new Runnable() {
+      public void run() {
+        try {
+          LogIn frame = new LogIn();
+          frame.setVisible(true);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+  }
 
-  
+  /**
+   * Create the frame.
+   */
   public LogIn() {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setBounds(100, 100, 450, 300);
@@ -42,10 +58,16 @@ public class LogIn extends JFrame {
     contentPane.add(textField);
     textField.setColumns(10);
 
+    textField_1 = new JTextField();
+    textField_1.setText("");
+    textField_1.setColumns(10);
+    textField_1.setBounds(114, 143, 215, 39);
+    contentPane.add(textField_1);
+
     JButton btnNewButton = new JButton("Iniciar Sesion");
     btnNewButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        Usuario result = Usuario.logIn(textField.getText(), passwordField.getText());
+        Usuario result = Usuario.logIn(textField.getText(), textField_1.getText());
 
         if (result != null) {
 
@@ -55,11 +77,6 @@ public class LogIn extends JFrame {
               op.setVisible(true);
               dispose();
               break;
-            case 2:
-            	OpcionesDeposito op2 = new OpcionesDeposito((Deposito) result);
-                op2.setVisible(true);
-                dispose();
-            	break;
           }
 
         } else {
@@ -82,13 +99,9 @@ public class LogIn extends JFrame {
     lblNewLabel.setBounds(116, 50, 154, 14);
     contentPane.add(lblNewLabel);
 
-    JLabel lblContrasea = new JLabel("ContraseÃ±a");
+    JLabel lblContrasea = new JLabel("Contraseña");
     lblContrasea.setFont(new Font("Roboto", Font.PLAIN, 14));
     lblContrasea.setBounds(116, 126, 87, 14);
     contentPane.add(lblContrasea);
-    
-    passwordField = new JPasswordField();
-    passwordField.setBounds(114, 151, 215, 33);
-    contentPane.add(passwordField);
   }
 }

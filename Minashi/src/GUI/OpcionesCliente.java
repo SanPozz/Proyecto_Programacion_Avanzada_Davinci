@@ -1,9 +1,7 @@
 package GUI;
 
 import BLL.Clases.Cliente;
-import BLL.Clases.Usuario;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -57,11 +55,20 @@ public class OpcionesCliente extends JFrame {
 
       }
     });
-    
 
     JButton btnVerPedidos = new JButton("Ver Pedidos");
     btnVerPedidos.setFont(new Font("Roboto", Font.PLAIN, 16));
     panel.add(btnVerPedidos);
+
+    btnVerPedidos.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+
+        PedidosClientes pedidosClientes = new PedidosClientes(cliente);
+        pedidosClientes.setVisible(true);
+        dispose();
+
+      }
+    });
   }
 
 }
