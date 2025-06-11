@@ -1,7 +1,8 @@
-package GUI;
+package GUI.Cliente;
 
 import BLL.Clases.Cliente;
 import BLL.Clases.Mineral;
+import BLL.Clases.OrdenDeCompra;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -53,6 +54,15 @@ public class CarritoCliente extends JFrame {
     JButton btnNewButton = new JButton("Finalizar Compra");
     btnNewButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
+
+        if (cliente.getCarrito().isEmpty()) {
+          JOptionPane.showMessageDialog(null, "El carrito está vacío. Por favor, añada minerales antes de finalizar la compra.");
+        } else {
+          OrdenDeCompra orden = new OrdenDeCompra(cliente, cliente.getCarrito(), new java.util.Date(), cliente.calcularTotalCarrito(), "Pendiente");
+            orden.emitirOrden();
+            JOptionPane.showMessageDialog(null, "Compra finalizada con éxito. ID de la orden: " + orden.getIdOrden());
+            dispose();
+        }
 
       }
     });
