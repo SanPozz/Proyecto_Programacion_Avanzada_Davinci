@@ -68,7 +68,7 @@ public class RegistrarMineral extends JFrame {
 		RegisTone.setBounds(10, 236, 152, 20);
 		contentPane.add(RegisTone);
 		
-		JLabel precio = new JLabel("Precio");
+		JLabel precio = new JLabel("Precio por Tonelada");
 		precio.setBounds(10, 267, 46, 14);
 		contentPane.add(precio);
 		
