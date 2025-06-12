@@ -17,7 +17,7 @@ public class OpcionesVenta extends JFrame {
     private JPanel contentPane;
     private JTable tableOrdenes;
     private Venta venta;
-    private JTextField textField; // 🔹 Lo declaramos globalmente
+    private JTextField textField;
 
     /**
      * Launch the application.
@@ -52,7 +52,7 @@ public class OpcionesVenta extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setBorder(new EmptyBorder(10, 20, 10, 20));
-        panel.setLayout(new GridLayout(0, 3, 10, 10)); // 🔹 Asegura alineación correcta
+        panel.setLayout(new GridLayout(0, 3, 10, 10));
         contentPane.add(panel);
 
         agregarBotones(panel);
@@ -73,7 +73,7 @@ public class OpcionesVenta extends JFrame {
         btnFinalizarOrden.addActionListener(e -> finalizarVenta());
         panel.add(btnFinalizarOrden);
 
-        // 🔹 Panel para el campo de texto y el botón Buscar (alineados verticalmente)
+        // Panel para el campo de texto y el botón Buscar (alineados verticalmente)
         JPanel panelBuscar = new JPanel(new GridLayout(0, 1, 0, 5));
         panel.add(panelBuscar);
 
@@ -91,7 +91,7 @@ public class OpcionesVenta extends JFrame {
         btnBuscarOrden.addActionListener(e -> buscarOrdenPorID(textField.getText()));
     }
 
-    // 🔹 Método para actualizar la tabla con órdenes desde la base de datos
+    // Método para actualizar la tabla con órdenes desde la base de datos
     private void actualizarTabla() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("ID");
@@ -118,7 +118,7 @@ public class OpcionesVenta extends JFrame {
         }
     }
 
-    // 🔹 Método para solicitar stock
+    // Método para solicitar stock
     private void solicitarStock() {
         String idMineral = JOptionPane.showInputDialog(this, "Ingrese ID del mineral:");
         String cantidad = JOptionPane.showInputDialog(this, "Ingrese toneladas:");
@@ -131,7 +131,7 @@ public class OpcionesVenta extends JFrame {
         }
     }
 
-    // 🔹 Método para finalizar una orden
+    // Método para finalizar una orden
     private void finalizarVenta() {
         String idOrden = JOptionPane.showInputDialog(this, "Ingrese ID de la orden a finalizar:");
 
@@ -144,7 +144,7 @@ public class OpcionesVenta extends JFrame {
         }
     }
 
-    // 🔹 Método para buscar una orden por ID
+    // Método para buscar una orden por ID
     private void buscarOrdenPorID(String idOrden) {
         try {
             int idBuscado = Integer.parseInt(idOrden);
