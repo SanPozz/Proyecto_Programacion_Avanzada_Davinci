@@ -68,10 +68,9 @@ public class DepositoVerStock extends JFrame {
 			EditarMineral editar = new EditarMineral(idMineralSelect, deposito);
 			editar.setVisible(true);
 			dispose();
-		}else {
-			JOptionPane.showMessageDialog(btnNewButton, "Seleccione un mineral");
-		}
-
+			}else {
+				JOptionPane.showMessageDialog(btnNewButton, "Seleccione un mineral");
+			}
 	      }
 	    );
 	    
