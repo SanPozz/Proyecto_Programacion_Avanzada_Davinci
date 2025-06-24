@@ -68,10 +68,9 @@ public class DepositoVerStock extends JFrame {
 			EditarMineral editar = new EditarMineral(idMineralSelect, deposito);
 			editar.setVisible(true);
 			dispose();
-		}else {
-			JOptionPane.showMessageDialog(btnNewButton, "Seleccione un mineral");
-		}
-
+			}else {
+				JOptionPane.showMessageDialog(btnNewButton, "Seleccione un mineral");
+			}
 	      }
 	    );
 	    
@@ -84,8 +83,9 @@ public class DepositoVerStock extends JFrame {
 	    btnNewButton_1.addActionListener(e-> {
 	    	 if (idMineralSelect != null) {
 	    		 String mensajeResul = ActualizarMineRepository.eliminarMineral(idMineralSelect);
+				 this.imprimirTabla(Mineral.mineralesEnStock(), model);
 	    		 JOptionPane.showMessageDialog(this, mensajeResul, "Resultado de la Eliminación", JOptionPane.INFORMATION_MESSAGE);
-	    		 
+
 			} else {
 				JOptionPane.showMessageDialog(btnNewButton, "Seleccione un mineral");
 			}

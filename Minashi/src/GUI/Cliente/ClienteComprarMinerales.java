@@ -16,6 +16,7 @@ public class ClienteComprarMinerales extends JFrame {
 
   private static final long serialVersionUID = 1L;
   private JPanel contentPane;
+  private static JTable table;
   /**
    * Create the frame.
    */
@@ -31,7 +32,7 @@ public class ClienteComprarMinerales extends JFrame {
 
     DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nombre", "Pureza", "Toneladas", "Precio por Tonelada"}, 0);
 
-    JTable table = new JTable(model);
+    table = new JTable(model);
 
     ArrayList<Mineral> minerales = Mineral.mineralesEnStock();
 
@@ -156,11 +157,15 @@ public class ClienteComprarMinerales extends JFrame {
     model.setRowCount(0);
 
     for (Mineral mineral : minerales) {
-      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getNombre(), mineral.getPureza(), mineral.getToneladas()});
+      model.addRow(new Object[]{mineral.getIdMineral(), mineral.getNombre(), mineral.getPureza(), mineral.getToneladas(), mineral.getPrecioTonelada()});
 
     }
+  }
 
-
+  static public void refrescarTabla() {
+    DefaultTableModel model = (DefaultTableModel) table.getModel();
+    ArrayList<Mineral> minerales = Mineral.mineralesEnStock();
+    imprimirTabla(minerales, model);
   }
 
 }

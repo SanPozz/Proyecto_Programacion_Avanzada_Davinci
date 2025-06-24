@@ -21,6 +21,7 @@ public class CarritoCliente extends JFrame {
   /**
    * Create the frame.
    */
+
   public CarritoCliente(Cliente cliente) {
 
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -61,6 +62,8 @@ public class CarritoCliente extends JFrame {
           OrdenDeCompra orden = new OrdenDeCompra(cliente, cliente.getCarrito(), new java.util.Date(), cliente.calcularTotalCarrito(), "Pendiente");
             orden.emitirOrden();
             JOptionPane.showMessageDialog(null, "Compra finalizada con éxito. ID de la orden: " + orden.getIdOrden());
+            Mineral.actualizarStock(cliente.getCarrito());
+            ClienteComprarMinerales.refrescarTabla();
             dispose();
         }
 

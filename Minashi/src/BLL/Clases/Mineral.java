@@ -124,6 +124,16 @@ public class Mineral {
 		}
     }
 
+    public static void actualizarStock(ArrayList<Mineral> minerales) {
+        for (Mineral mineral : minerales) {
+            if (mineral.getToneladas() <= 0) {
+                MineralesRepository.actualizarStock(mineral);
+            } else {
+                MineralesRepository.actualizarStock(mineral);
+            }
+        }
+    }
+
 
     @Override
     public String toString() {

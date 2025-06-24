@@ -13,10 +13,28 @@ public class MineralesRepository {
 
   private static Connection conn = Conexion.getInstance().getConnection();
 
+  static public String actualizarStock(Mineral mineral) {
+    try {
+
+        PreparedStatement ps = (PreparedStatement) conn.prepareStatement("UPDATE minerales SET toneladas = ? WHERE id = ?");
+
+        Mineral findMineral = encontrarMineralPorId(mineral.getIdMineral());
+        Double cantActualizada = findMineral.getToneladas() - mineral.getToneladas();
+        ps.setDouble(1, cantActualizada);
+        ps.setInt(2, mineral.getIdMineral());
+
+        return ps.executeUpdate() > 0 ? "Stock de minerales actualizado correctamente" : "No se pudo actualizar el stock de minerales";
+
+    } catch (SQLException e){
+        e.printStackTrace();
+        return "Error al actualizar el stock de minerales";
+    }
+  }
+
   static public ArrayList<Mineral> encontrarMinerales(){
     ArrayList<Mineral> minerales = new ArrayList<>();
     try{
-      ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM minerales");
+      ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM minerales WHERE estado != 'eliminado'");
 
       while(rs.next()){
 
@@ -74,7 +92,7 @@ public class MineralesRepository {
   
   public static String registrarMineral(Mineral mineral) {
 	    
-	    try (PreparedStatement statement = (PreparedStatement) conn.prepareStatement("INSERT INTO `minerales`(`nombre`, `toneladas`, `pureza`,`precioTonelada`) VALUES (?,?,?,?)")) {
+	    try (PreparedStatement statement = (PreparedStatement) conn.prepareStatement("INSERT INTO `minerales`(`nombre`, `toneladas`, `pureza`,`precioTonelada`, `estado`) VALUES (?,?,?,?, 'disponible')")) {
 	        statement.setString(1, mineral.getNombre());
 	        statement.setDouble(2, mineral.getToneladas());
 	        statement.setDouble(3, mineral.getPureza());

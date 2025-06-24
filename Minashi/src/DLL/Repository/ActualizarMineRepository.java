@@ -57,11 +57,11 @@ public static String editarIdMineral(Mineral mineral) {
 		    }
 		  }
 	  public static String eliminarMineral(Mineral mineral) {
-		  int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro que quiere eliminar este mineral?","Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+		  int respuesta = JOptionPane.showConfirmDialog(null, "ï¿½Estï¿½ seguro que quiere eliminar este mineral?","Confirmar Eliminaciï¿½n", JOptionPane.YES_NO_OPTION);
 		  
 		  if (respuesta == JOptionPane.YES_OPTION) {
 			 
-			  try (PreparedStatement statement = (PreparedStatement) conn.prepareStatement("DELETE FROM `minerales` WHERE id = ?")) {
+			  try (PreparedStatement statement = (PreparedStatement) conn.prepareStatement("UPDATE minerales SET estado = 'eliminado' WHERE id = ?")) {
 			 
 			        statement.setInt(1, mineral.getIdMineral());
 
