@@ -34,9 +34,7 @@ public class OpcionesAdmin extends JFrame {
     });
   }
 
-  /**
-   * Create the frame.
-   */
+
   public OpcionesAdmin() {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setBounds(100, 100, 450, 300);

@@ -19,9 +19,7 @@ public class ClienteComprarMinerales extends JFrame {
   private static final long serialVersionUID = 1L;
   private JPanel contentPane;
   private static JTable table;
-  /**
-   * Create the frame.
-   */
+ 
   public ClienteComprarMinerales(Cliente cliente) {
 	ArrayList<Mineral> minerales = Mineral.mineralesEnStock();
 	

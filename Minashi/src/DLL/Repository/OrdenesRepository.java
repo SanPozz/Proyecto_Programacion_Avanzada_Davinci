@@ -31,21 +31,21 @@ public class OrdenesRepository {
 
         ps.executeUpdate();
 
-        // Obtener el ID de la orden recién creada
+     
       java.sql.ResultSet generatedKeys = ps.getGeneratedKeys();
 
         if (generatedKeys.next()) {
             int ordenId = generatedKeys.getInt(1);
-            return ordenId; // Retornar el ID de la orden creada
+            return ordenId; 
         } else {
             System.out.println("No se pudo obtener el ID de la orden creada.");
-            return -1; // Retornar un valor negativo para indicar error
+            return -1;
         }
 
 
     } catch (Exception e) {
       e.printStackTrace();
-      return -1; // Retornar un valor negativo para indicar error
+      return -1; 
     }
   }
 
@@ -93,7 +93,7 @@ public class OrdenesRepository {
 
     } catch (Exception e) {
       e.printStackTrace();
-        return ordenes; // Retornar una lista vacía en caso de error
+        return ordenes; 
     }
   }
   public static ArrayList<OrdenDeCompra> buscarOrdenPorIdOrden(int idOrden) {

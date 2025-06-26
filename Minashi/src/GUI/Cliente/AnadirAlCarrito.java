@@ -70,7 +70,7 @@ public class AnadirAlCarrito extends JFrame {
           dispose();
         }
 
-//        JOptionPane.showMessageDialog(null, "Mineral añadido al carrito con éxito.");
+
       } catch (NumberFormatException ex) {
         JOptionPane.showMessageDialog(null, "Por favor, introduzca un número válido.");
       }
