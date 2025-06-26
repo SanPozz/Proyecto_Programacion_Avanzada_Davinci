@@ -1,16 +1,17 @@
 package DLL.Repository;
 
-import BLL.Clases.Cliente;
-import BLL.Clases.Usuario;
 import DLL.Conexion.Conexion;
+
+import BLLL.Clases.Cliente;
+import BLLL.Clases.Usuario;
+
+import static BLLL.Clases.Usuario.crearUserPorRol;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import static BLL.Clases.Usuario.crearUserPorRol;
 
 
 public class UsersRepository {

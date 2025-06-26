@@ -1,13 +1,17 @@
 package DLL.Repository;
 
-import BLL.Clases.Mineral;
-import BLL.Clases.OrdenDeCompra;
-import BLL.Clases.Cliente;
-import BLL.Clases.Usuario;
 import DLL.Conexion.Conexion;
 
+import BLLL.Clases.Cliente;
+import BLLL.Clases.Mineral;
+import BLLL.Clases.OrdenDeCompra;
+import BLLL.Clases.Usuario;
+
+
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -92,6 +96,33 @@ public class OrdenesRepository {
         return ordenes; // Retornar una lista vacía en caso de error
     }
   }
+  public static ArrayList<OrdenDeCompra> buscarOrdenPorIdOrden(int idOrden) {
+	    ArrayList<OrdenDeCompra> ordenes = new ArrayList<>();
+	    try {
+	        String query = "SELECT * FROM ordenes WHERE id = ?";
+	        PreparedStatement ps = conn.prepareStatement(query);
+	        ps.setInt(1, idOrden);
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            int compradorId = rs.getInt("comprador");
+	            double total = rs.getDouble("total");
+	            String estado = rs.getString("estado");
+	            Timestamp fechaTimestamp = rs.getTimestamp("fecha");
+
+	            Date fecha = new Date(fechaTimestamp.getTime());
+
+	            Cliente destinatario = UsersRepository.encontrarClienteID(compradorId);
+
+	            OrdenDeCompra orden = new OrdenDeCompra(idOrden, destinatario, fecha, total, estado);
+	            ordenes.add(orden);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return ordenes;
+	}
 
   static public ArrayList<Mineral> detalleOrden(int idOrden) {
     ArrayList<Mineral> mineralesOrden = new ArrayList<>();
@@ -126,5 +157,35 @@ public class OrdenesRepository {
     }
     return mineralesOrden;
   }
+
+  
+  public static ArrayList<OrdenDeCompra> obtenerTodas() {
+	    ArrayList<OrdenDeCompra> ordenes = new ArrayList<>();
+	    try {
+	        String query = "SELECT * FROM ordenes";
+	        PreparedStatement ps = conn.prepareStatement(query);
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            int idOrden = rs.getInt("id");
+	            int compradorId = rs.getInt("comprador");
+	            double total = rs.getDouble("total");
+	            String estado = rs.getString("estado");
+	            Timestamp fechaTimestamp = rs.getTimestamp("fecha");
+	            java.util.Date fecha = new java.util.Date(fechaTimestamp.getTime());
+
+	            Cliente destinatario = UsersRepository.encontrarClienteID(compradorId);
+
+	            OrdenDeCompra orden = new OrdenDeCompra(idOrden, destinatario, fecha, total, estado);
+	            ordenes.add(orden);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return ordenes;
+	}
+ 
 
 }

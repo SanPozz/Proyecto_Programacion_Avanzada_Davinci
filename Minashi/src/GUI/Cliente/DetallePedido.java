@@ -1,13 +1,16 @@
 package GUI.Cliente;
 
-import BLL.Clases.Mineral;
-
 import java.awt.EventQueue;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+
+import BLLL.Clases.Mineral;
+
+
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;

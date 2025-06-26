@@ -1,9 +1,5 @@
 package GUI.Cliente;
 
-import BLL.Clases.Cliente;
-import BLL.Clases.Mineral;
-import BLL.Clases.OrdenDeCompra;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +9,14 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+
+
+import BLLL.Clases.Cliente;
+import BLLL.Clases.Mineral;
+import BLLL.Clases.OrdenDeCompra;
+
+
 
 public class CarritoCliente extends JFrame {
 

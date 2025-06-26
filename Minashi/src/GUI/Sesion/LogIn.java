@@ -1,11 +1,13 @@
 package GUI.Sesion;
 
-import BLL.Clases.Cliente;
-import BLL.Clases.Deposito;
-import BLL.Clases.Usuario;
-
-import BLL.Clases.Venta;
 import GUI.Cliente.OpcionesCliente;
+
+
+import BLLL.Clases.Cliente;
+import BLLL.Clases.Deposito;
+import BLLL.Clases.Usuario;
+import BLLL.Clases.Venta;
+
 import GUI.OpcionesDeposito;
 import GUI.OpcionesVenta;
 
@@ -15,20 +17,20 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class LogIn extends JFrame {
 
   private static final long serialVersionUID = 1L;
   private JPanel contentPane;
   private JTextField textField;
-  private JTextField textField_1;
+  private JPasswordField textField_1;
 
   /**
    * Launch the application.
@@ -64,12 +66,6 @@ public class LogIn extends JFrame {
     contentPane.add(textField);
     textField.setColumns(10);
 
-    textField_1 = new JTextField();
-    textField_1.setText("");
-    textField_1.setColumns(10);
-    textField_1.setBounds(114, 143, 215, 39);
-    contentPane.add(textField_1);
-
     JButton btnNewButton = new JButton("Iniciar Sesion");
     btnNewButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -91,7 +87,6 @@ public class LogIn extends JFrame {
                 dispose();
                 break;
             case 3:
-
               OpcionesVenta opVenta = new OpcionesVenta((Venta) result);
                 opVenta.setVisible(true);
                 dispose();
@@ -123,5 +118,9 @@ public class LogIn extends JFrame {
     lblContrasea.setFont(new Font("Roboto", Font.PLAIN, 14));
     lblContrasea.setBounds(116, 126, 87, 14);
     contentPane.add(lblContrasea);
+    
+    textField_1 = new JPasswordField();
+    textField_1.setBounds(114, 151, 215, 39);
+    contentPane.add(textField_1);
   }
 }

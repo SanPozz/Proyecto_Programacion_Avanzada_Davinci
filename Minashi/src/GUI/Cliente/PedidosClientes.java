@@ -1,11 +1,15 @@
 package GUI.Cliente;
 
-import BLL.Clases.Cliente;
-import BLL.Clases.Mineral;
-import BLL.Clases.OrdenDeCompra;
 import DLL.Repository.OrdenesRepository;
+import GUI.OpcionesDeposito;
 import GUI.Cliente.DetallePedido;
 
+import BLLL.Clases.Cliente;
+import BLLL.Clases.Mineral;
+import BLLL.Clases.OrdenDeCompra;
+
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,59 +53,75 @@ public class PedidosClientes extends JFrame {
     JPanel panel = new JPanel();
     panel.setBorder(new EmptyBorder(10, 20, 10, 20));
     contentPane.add(panel);
-    panel.setLayout(new GridLayout(0, 3, 0, 10));
+    panel.setLayout(null);
 
     JPanel panel_1 = new JPanel();
+    panel_1.setBounds(20, 10, 242, 177);
     panel_1.setBorder(new EmptyBorder(20, 0, 20, 0));
     panel.add(panel_1);
-    panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+    panel_1.setLayout(null);
+    
+        JButton btnNewButton = new JButton("Ver Detalle");
+        btnNewButton.setBounds(10, 11, 121, 155);
+        panel_1.add(btnNewButton);
+        btnNewButton.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
 
-    JButton btnNewButton = new JButton("Ver Detalle");
-    btnNewButton.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow == -1) {
+              JOptionPane.showMessageDialog(null, "Por favor, seleccione un pedido para ver los detalles.");
+              return;
+            }
 
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow == -1) {
-          JOptionPane.showMessageDialog(null, "Por favor, seleccione un pedido para ver los detalles.");
-          return;
-        }
-
-        int idOrden = (int) model.getValueAt(selectedRow, 0);
-
-
-        ArrayList<Mineral> minerales = OrdenesRepository.detalleOrden(idOrden);
-
-        String fechaStr = model.getValueAt(selectedRow, 2).toString();
+            int idOrden = (int) model.getValueAt(selectedRow, 0);
 
 
+            ArrayList<Mineral> minerales = OrdenesRepository.detalleOrden(idOrden);
 
-        DetallePedido detallePedido = new DetallePedido(
-            minerales,
-            idOrden,
-            fechaStr
-        );
-
-        detallePedido.setVisible(true);
+            String fechaStr = model.getValueAt(selectedRow, 2).toString();
 
 
 
+            DetallePedido detallePedido = new DetallePedido(
+                minerales,
+                idOrden,
+                fechaStr
+            );
 
-      }
-    });
+            detallePedido.setVisible(true);
 
-    panel_1.add(btnNewButton);
+
+
+
+          }
+        });
 
     JPanel panel_2 = new JPanel();
+    panel_2.setBounds(262, 10, 495, 177);
     panel.add(panel_2);
     panel_2.setBorder(new EmptyBorder(30, 30, 30, 30));
-    panel_2.setLayout(new GridLayout(0, 1, 0, 0));
+    panel_2.setLayout(null);
 
     JTextField textField = new JTextField();
+    textField.setBounds(30, 11, 182, 72);
     panel_2.add(textField);
     textField.setColumns(10);
 
     JButton btnNewButton_2 = new JButton("Buscar por ID");
+    btnNewButton_2.setBounds(30, 94, 182, 72);
     panel_2.add(btnNewButton_2);
+    
+    JButton botonAtras = new JButton("<- VOLVER");
+    botonAtras.setBounds(364, 78, 121, 72);
+    panel_2.add(botonAtras);
+    botonAtras.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		OpcionesCliente atras = new OpcionesCliente(cliente);
+    		atras.setVisible(true);
+    		dispose();
+    		
+    	}
+    });
 
     btnNewButton_2.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
@@ -140,6 +160,5 @@ public class PedidosClientes extends JFrame {
 
 
   }
-
 }
 

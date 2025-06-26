@@ -1,7 +1,8 @@
 package DLL.Repository;
 
-import BLL.Clases.Mineral;
 import DLL.Conexion.Conexion;
+import BLLL.Clases.Mineral;
+
 import com.mysql.jdbc.PreparedStatement;
 
 import java.sql.Connection;
@@ -38,7 +39,7 @@ public class MineralesRepository {
 
       while(rs.next()){
 
-        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada")));
+        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada"),rs.getString("estado")));
 
       }
 
@@ -59,7 +60,7 @@ public class MineralesRepository {
       ResultSet rs = ps.executeQuery();
 
       if(rs.next()){
-        return new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada"));
+        return new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada"),rs.getString("estado"));
       } else {
         return null;
       }
@@ -78,7 +79,7 @@ public class MineralesRepository {
 
       while(rs.next()){
 
-        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada")));
+        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"), rs.getDouble("precioTonelada"),rs.getString("estado")));
 
       }
 

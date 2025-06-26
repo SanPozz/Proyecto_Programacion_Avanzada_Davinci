@@ -1,14 +1,17 @@
-package BLL.Clases;
+package BLLL.Clases;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
 import DLL.Conexion.Conexion;
 
 public class Venta extends Usuario {
 
-
+	private static Connection conn = Conexion.getInstance().getConnection();
     public Venta(int idUsuario, String nombre, String apellido, int edad, String correo, int rol) {
         super(idUsuario, nombre, apellido, edad, correo, 3);
     }
@@ -58,25 +61,26 @@ public class Venta extends Usuario {
     }
 
     // Método para finalizar una orden
-    public void finalizarVenta(int idOrden) {
-        String query = "UPDATE ordenes SET estado = 'Finalizada' WHERE id = ? AND comprador = ?";
 
-        try (Connection con = Conexion.getInstance().getConnection();
-             PreparedStatement stmt = con.prepareStatement(query)) {
+    public static String finalizarVenta(OrdenDeCompra orden) {
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro que quiere finalizar esta orden de compra?", "Confirmar Finalización", JOptionPane.YES_NO_OPTION);
 
-            stmt.setInt(1, idOrden);
-            stmt.setInt(2, getIdUsuario());
+        if (respuesta == JOptionPane.YES_OPTION) {
+            try (PreparedStatement statement = conn.prepareStatement("UPDATE ordenes SET estado = 'Finalizado' WHERE id = ?")) {
+                statement.setInt(1, orden.getIdOrden());
+                int filas = statement.executeUpdate();
 
-            int filasAfectadas = stmt.executeUpdate();
-            if (filasAfectadas > 0) {
-                System.out.println("Orden finalizada correctamente.");
-            } else {
-                System.out.println("No se encontró la orden o ya estaba finalizada.");
+                if (filas > 0) {
+                    return "Se finalizó la orden de compra";
+                } else {
+                    return "Error al finalizar la orden";
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return "Error al intentar finalizar la orden: " + e.getMessage();
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error al finalizar la orden.");
+        } else {
+            return "No se finalizó la orden";
         }
     }
 

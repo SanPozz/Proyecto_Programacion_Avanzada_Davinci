@@ -1,4 +1,4 @@
-package BLL.Clases;
+package BLLL.Clases;
 
 public interface InterfaceDeposito {
 

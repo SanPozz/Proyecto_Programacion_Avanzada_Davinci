@@ -1,14 +1,16 @@
 package GUI;
 
-import BLL.Clases.Deposito;
-import BLL.Clases.Mineral;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import javax.swing.JLabel;
 
 import javax.swing.SwingConstants;
+
+
+import BLLL.Clases.Deposito;
+import BLLL.Clases.Mineral;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -23,13 +25,13 @@ public class OpcionesDeposito extends JFrame{
 	public OpcionesDeposito(Deposito deposito) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 627, 300);
+		setBounds(100, 100, 633, 300);
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Panel Deposito");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(10, 11, 591, 94);
-		lblNewLabel.setFont(new Font("DialogInput", Font.BOLD, 20));
+		lblNewLabel.setFont(new Font("Dialog", Font.BOLD, 20));
 		getContentPane().add(lblNewLabel);
 		
 		
@@ -38,6 +40,7 @@ public class OpcionesDeposito extends JFrame{
 		getContentPane().add(panel);
 		
 		JButton btnNewButton = new JButton("VER STOCK");
+		btnNewButton.setFont(new Font("Dialog", Font.PLAIN, 16));
 		btnNewButton.setBounds(216, 35, 160, 45);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -47,6 +50,7 @@ public class OpcionesDeposito extends JFrame{
 		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("REGIS MINERAL");
+		btnNewButton_1.setFont(new Font("Dialog", Font.PLAIN, 16));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegistrarMineral reMin = new RegistrarMineral(deposito);
@@ -58,6 +62,7 @@ public class OpcionesDeposito extends JFrame{
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("SALIR");
+		btnNewButton_2.setFont(new Font("Dialog", Font.PLAIN, 16));
 		btnNewButton_2.setForeground(Color.RED);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

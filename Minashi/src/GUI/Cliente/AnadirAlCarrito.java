@@ -1,10 +1,13 @@
 package GUI.Cliente;
 
-import BLL.Clases.Cliente;
-import BLL.Clases.Mineral;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+
+import BLLL.Clases.Mineral;
+import BLLL.Clases.Cliente;
+
+
 import java.awt.GridLayout;
 import java.awt.Font;
 
@@ -59,7 +62,8 @@ public class AnadirAlCarrito extends JFrame {
               mineral.getNombre(),
               mineral.getPureza(),
               cantidad,
-              mineral.getPrecioTonelada()
+              mineral.getPrecioTonelada(),
+              mineral.getEstado()
           ));
 
           JOptionPane.showMessageDialog(null, "Mineral añadido al carrito con éxito.");

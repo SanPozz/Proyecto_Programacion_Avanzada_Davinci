@@ -1,7 +1,8 @@
 package DLL.Repository;
 
-import BLL.Clases.Mineral;
 import DLL.Conexion.Conexion;
+import BLLL.Clases.Mineral;
+
 import com.mysql.jdbc.PreparedStatement;
 
 import java.sql.Connection;
@@ -17,8 +18,9 @@ private static Connection conn = Conexion.getInstance().getConnection();
 	 
  
 public static String editarIdMineral(Mineral mineral) {
-    
-    try (PreparedStatement statement = (PreparedStatement) conn.prepareStatement("UPDATE `minerales` SET `nombre`= ?, `toneladas`= ?, `pureza`= ?, `precioTonelada`= ? WHERE id = ?")) {
+    try (PreparedStatement statement = (PreparedStatement) conn.prepareStatement(
+            "UPDATE minerales SET nombre = ?, toneladas = ?, pureza = ?, precioTonelada = ?, estado = 'disponible' WHERE id = ?")) {
+        
         statement.setString(1, mineral.getNombre());
         statement.setDouble(2, mineral.getToneladas());
         statement.setDouble(3, mineral.getPureza());
@@ -27,37 +29,46 @@ public static String editarIdMineral(Mineral mineral) {
 
         int filas = statement.executeUpdate();
         if (filas > 0) {
-        	 return "Se actualizo el mineral ingresado \nFilas actualizadas: " + filas;
-		}else {
-			return "No se realizo cambios";
-		}
-       
+            return "Se actualizó el mineral correctamente. Filas actualizadas: " + filas;
+        } else {
+            return "No se realizaron cambios";
+        }
+
     } catch (Exception e) {
+        e.printStackTrace();
+        return "Error al editar mineral: " + e.getMessage();
+    }
+}
+
+
+
+ 
+static public ArrayList<Mineral> encontrarMineralesPorId(int idMineral) {
+    ArrayList<Mineral> minerales = new ArrayList<>();
+
+    try (PreparedStatement ps = (PreparedStatement) conn.prepareStatement("SELECT * FROM minerales WHERE id = ?")) {
+        ps.setInt(1, idMineral);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            minerales.add(new Mineral(
+                rs.getInt("id"),
+                rs.getString("nombre"),
+                rs.getDouble("pureza"),
+                rs.getDouble("toneladas"),
+                rs.getDouble("precioTonelada"),
+                rs.getString("estado")
+            ));
+        }
+    } catch (SQLException e) {
         e.printStackTrace();
         
     }
-    return "error";
+    return minerales;
 }
- 
-	  static public ArrayList<Mineral> encontrarMineralesPorId(int idMineral){
-		    ArrayList<Mineral> minerales = new ArrayList<>();
 
-		    try {
-		      ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM `minerales` WHERE id = ?");
-
-		      while(rs.next()){
-		        minerales.add(new Mineral(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("pureza"), rs.getDouble("toneladas"),rs.getDouble("precioTonelada")));
-		      }
-
-		      return minerales;
-
-		    } catch (SQLException e) {
-		      e.printStackTrace();
-		      return null;
-		    }
-		  }
 	  public static String eliminarMineral(Mineral mineral) {
-		  int respuesta = JOptionPane.showConfirmDialog(null, "�Est� seguro que quiere eliminar este mineral?","Confirmar Eliminaci�n", JOptionPane.YES_NO_OPTION);
+		  int respuesta = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere eliminar este mineral? ","Confirmar Eliminaci�n", JOptionPane.YES_NO_OPTION);
 		  
 		  if (respuesta == JOptionPane.YES_OPTION) {
 			 

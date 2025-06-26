@@ -6,10 +6,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import BLL.Clases.Deposito;
-import BLL.Clases.Mineral;
 import DLL.Repository.MineralesRepository;
 
+import BLLL.Clases.Deposito;
+import BLLL.Clases.Mineral;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,13 +28,14 @@ public class RegistrarMineral extends JFrame {
 	private JTextField RegisPur;
 	private JTextField RegisTone;
 	private JTextField RegisPrecio;
+	
 
 
 
 	
 	public RegistrarMineral(Deposito deposito) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 490);
+		setBounds(100, 100, 450, 432);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -77,6 +78,8 @@ public class RegistrarMineral extends JFrame {
 		RegisPrecio.setBounds(10, 292, 152, 20);
 		contentPane.add(RegisPrecio);
 		
+		
+		
 		JLabel lblNewLabel_1 = new JLabel("Registrar mineral");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -91,7 +94,9 @@ public class RegistrarMineral extends JFrame {
 						RegisNom.getText(),
 						Float.parseFloat(RegisPur.getText()),
 						Float.parseFloat(RegisTone.getText()),
-						Float.parseFloat(RegisPrecio.getText())
+						Float.parseFloat(RegisPrecio.getText()),
+						"disponible"
+						
 						);
 				
 				
@@ -104,12 +109,12 @@ public class RegistrarMineral extends JFrame {
 	                JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage());
 	            }
 	        });
-		BtnRegis.setBounds(10, 368, 89, 23);
+		BtnRegis.setBounds(10, 348, 89, 23);
 		contentPane.add(BtnRegis);
 		
 		JLabel info = new JLabel("");
 		info.setText(Mineral.RegisMineral(null));
-		info.setBounds(251, 372, 157, 14);
+		info.setBounds(247, 352, 157, 14);
 		contentPane.add(info);
 		
 //		info.setText(Mineral.RegisMineral(mineral));
@@ -121,9 +126,10 @@ public class RegistrarMineral extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setBounds(109, 368, 89, 23);
+		btnNewButton.setBounds(109, 348, 89, 23);
 		contentPane.add(btnNewButton);
 		
+	
+		
 	}
-
 }

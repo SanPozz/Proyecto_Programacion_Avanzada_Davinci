@@ -1,4 +1,4 @@
-package BLL.Clases;
+package BLLL.Clases;
 
 import DLL.Repository.ActualizarMineRepository;
 import DLL.Repository.MineralesRepository;
@@ -15,13 +15,25 @@ public class Mineral {
     private double pureza;
     private double toneladas;
     private double precioTonelada;
+    private String estado;
 
 
+    public Mineral(int idMineral, String nombre, double pureza, double toneladas, double precioTonelada,String estado) {
+        this.idMineral = idMineral;
+        this.nombre = nombre;
+        this.pureza = pureza;
+        this.toneladas = toneladas;
+        this.estado = estado;
+
+        this.precioTonelada=precioTonelada;
+    }
+    
     public Mineral(int idMineral, String nombre, double pureza, double toneladas, double precioTonelada) {
         this.idMineral = idMineral;
         this.nombre = nombre;
         this.pureza = pureza;
         this.toneladas = toneladas;
+    
 
         this.precioTonelada=precioTonelada;
     }
@@ -72,8 +84,15 @@ public class Mineral {
     public void setPrecioTonelada(double precioTonelada) {
         this.precioTonelada = precioTonelada;
     }
+    
 
-    static public ArrayList<Mineral> mineralesEnStock() {
+    public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	static public ArrayList<Mineral> mineralesEnStock() {
             ArrayList<Mineral> minerales = MineralesRepository.encontrarMinerales();
             ArrayList<Mineral> mineralesEnStock = new ArrayList<Mineral>();
             for (Mineral mineral : minerales) {
@@ -117,12 +136,18 @@ public class Mineral {
     }
     
     public static String EditarMineral(Mineral mineral) {
-    	if (mineral.getNombre().isEmpty()||mineral.getPureza()<=0||mineral.getToneladas()<=0||mineral.getPrecioTonelada()<=0) {
-			return "No se pudo editar";
-		} else {
-          return ActualizarMineRepository.editarIdMineral(mineral);
-		}
+        if (mineral.getNombre() == null || mineral.getNombre().isEmpty() ||
+            mineral.getPureza() <= 0 || mineral.getToneladas() <= 0 ||
+            mineral.getPrecioTonelada() <= 0) {
+            return "No se pudo editar: datos inválidos";
+        }
+
+        mineral.setEstado("disponible");
+        
+        return ActualizarMineRepository.editarIdMineral(mineral);
     }
+
+
 
     public static void actualizarStock(ArrayList<Mineral> minerales) {
         for (Mineral mineral : minerales) {
@@ -135,21 +160,18 @@ public class Mineral {
     }
 
 
-    @Override
-    public String toString() {
-        return "Mineral{" +
-                "idMineral=" + idMineral +
-                ", tipo='" + nombre + '\'' +
-                ", pureza=" + pureza +
-                ", toneladas=" + toneladas +
-                '}';
 
-    }
 
     
-    public static String RegisMineral(Mineral mineral) {
+    @Override
+	public String toString() {
+		return "Mineral [idMineral=" + idMineral + ", nombre=" + nombre + ", pureza=" + pureza + ", toneladas="
+				+ toneladas + ", precioTonelada=" + precioTonelada + ", estado=" + estado + "]";
+	}
+    
+	public static String RegisMineral(Mineral mineral) {
         if (mineral == null ||
-            mineral.getNombre() == null || mineral.getNombre().isEmpty() ||mineral.getPureza() <= 0 || mineral.getToneladas() <= 0 ||mineral.getPrecioTonelada() <= 0) {
+            mineral.getNombre() == null || mineral.getNombre().isEmpty() ||mineral.getPureza() <= 0 || mineral.getToneladas() <= 0 ||mineral.getPrecioTonelada() <= 0 || mineral.getEstado().isEmpty()) {
             return "Error";
         }
 
