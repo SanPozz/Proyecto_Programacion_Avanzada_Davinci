@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import BLLL.Clases.Usuario;
-
+import GUI.MenuPrincipal;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -59,7 +59,7 @@ public class SignUp extends JFrame {
 
     JButton btnNewButton = new JButton("Enviar");
     btnNewButton.setFont(new Font("Roboto", Font.PLAIN, 14));
-    btnNewButton.setBounds(145, 358, 138, 33);
+    btnNewButton.setBounds(67, 358, 138, 33);
     contentPane.add(btnNewButton);
 
     JLabel lblRegistrarse = new JLabel("Registrarse");
@@ -119,7 +119,20 @@ public class SignUp extends JFrame {
     textField_5 = new JTextField();
     textField_5.setColumns(10);
     panel.add(textField_5);
+    
+    JButton btnNewButton_1 = new JButton("Volver");
+    btnNewButton_1.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		MenuPrincipal volver = new MenuPrincipal();
+    		volver.setVisible(true);
+			dispose();
+    	}
+    });
+    btnNewButton_1.setFont(new Font("Dialog", Font.PLAIN, 14));
+    btnNewButton_1.setBounds(215, 358, 138, 33);
+    contentPane.add(btnNewButton_1);
 
+   
     btnNewButton.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         Boolean result = null;

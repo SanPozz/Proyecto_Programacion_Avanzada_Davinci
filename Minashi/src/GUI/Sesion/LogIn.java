@@ -7,7 +7,7 @@ import BLLL.Clases.Cliente;
 import BLLL.Clases.Deposito;
 import BLLL.Clases.Usuario;
 import BLLL.Clases.Venta;
-
+import GUI.MenuPrincipal;
 import GUI.OpcionesDeposito;
 import GUI.OpcionesVenta;
 
@@ -101,7 +101,7 @@ public class LogIn extends JFrame {
       }
     });
     btnNewButton.setFont(new Font("Roboto", Font.PLAIN, 14));
-    btnNewButton.setBounds(152, 206, 138, 33);
+    btnNewButton.setBounds(65, 217, 138, 33);
     contentPane.add(btnNewButton);
 
     JLabel titulo = new JLabel("Iniciar Sesion");
@@ -114,7 +114,7 @@ public class LogIn extends JFrame {
     lblNewLabel.setBounds(116, 50, 154, 14);
     contentPane.add(lblNewLabel);
 
-    JLabel lblContrasea = new JLabel("Contrase�a");
+    JLabel lblContrasea = new JLabel("Contrasenia");
     lblContrasea.setFont(new Font("Roboto", Font.PLAIN, 14));
     lblContrasea.setBounds(116, 126, 87, 14);
     contentPane.add(lblContrasea);
@@ -122,5 +122,17 @@ public class LogIn extends JFrame {
     textField_1 = new JPasswordField();
     textField_1.setBounds(114, 151, 215, 39);
     contentPane.add(textField_1);
+    
+    JButton btnNewButton_1 = new JButton("Volver");
+    btnNewButton_1.setFont(new Font("Dialog", Font.PLAIN, 14));
+    btnNewButton_1.addActionListener(new ActionListener() {
+    	public void actionPerformed(ActionEvent e) {
+    		MenuPrincipal volver = new MenuPrincipal();
+    		volver.setVisible(true);
+			dispose();
+    	}
+    });
+    btnNewButton_1.setBounds(234, 217, 138, 33);
+    contentPane.add(btnNewButton_1);
   }
 }

@@ -20,7 +20,7 @@ public class MenuPrincipal extends JFrame {
   private static final long serialVersionUID = 1L;
   private JPanel contentPane;
 
-  // MAIN
+
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
       public void run() {
@@ -34,7 +34,6 @@ public class MenuPrincipal extends JFrame {
     });
   }
 
-  // CONSTRUCTOR
   public MenuPrincipal() {
     setBackground(new Color(0, 0, 0));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,7 +45,7 @@ public class MenuPrincipal extends JFrame {
     setContentPane(contentPane);
     contentPane.setLayout(null);
 
-    // Botón Iniciar Sesión
+
     JButton btnNewButton = new JButton("Iniciar Sesion");
     btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 16));
     btnNewButton.setBounds(94, 181, 138, 46);
@@ -55,11 +54,11 @@ public class MenuPrincipal extends JFrame {
       public void actionPerformed(ActionEvent e) {
         LogIn login = new LogIn();
         login.setVisible(true);
-        dispose(); // cerrar esta ventana
+        dispose(); 
       }
     });
 
-    // Botón Registrarse (por ahora vacío)
+ 
     JButton btnNewButton_1 = new JButton("Registrarse");
     btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
     btnNewButton_1.setBounds(242, 181, 138, 46);
