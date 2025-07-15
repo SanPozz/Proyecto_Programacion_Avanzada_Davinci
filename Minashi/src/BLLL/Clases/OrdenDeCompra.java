@@ -14,8 +14,9 @@ public class OrdenDeCompra {
     private Double total;
     private Double peso;
     private String estado;
+    private boolean descuento;
 
-    public OrdenDeCompra(int idOrden, Cliente destinatario, ArrayList<Mineral> minerales, Date fecha, Double total, String estado) {
+    public OrdenDeCompra(int idOrden, Cliente destinatario, ArrayList<Mineral> minerales, Date fecha, Double total, String estado, boolean descuento) {
         this.idOrden = idOrden;
         this.destinatario = destinatario;
         this.minerales = minerales;
@@ -23,6 +24,7 @@ public class OrdenDeCompra {
         this.peso = minerales.stream().mapToDouble(Mineral::getToneladas).sum();
         this.total = total;
         this.estado = estado;
+        this.descuento = peso >= 20;
     }
 
     public OrdenDeCompra(int idOrden, Cliente destinatario, Date fecha, Double total, String estado) {
@@ -138,6 +140,7 @@ public class OrdenDeCompra {
                 ", minerales=" + minerales +
                 ", fecha=" + fecha +
                 ", total=" + total +
+                ", descuento=" + descuento +
                 '}';
     }
 }
