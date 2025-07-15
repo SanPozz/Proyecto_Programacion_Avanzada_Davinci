@@ -29,9 +29,19 @@ public class Cliente extends Usuario{
 
     public double calcularTotalCarrito() {
         double total = 0;
+        double toneladasTotales = 0;
+
         for (Mineral mineral : carrito) {
             total += mineral.getPrecioTonelada() * mineral.getToneladas() * (mineral.getPureza() / 100);
+            toneladasTotales += mineral.getToneladas();
         }
+        
+        // Aplica descuento si las toneladas totales igualan o superan a 20
+        
+        if (toneladasTotales >= 20) {
+            total *= 0.8;
+        }
+
         return total;
     }
 
