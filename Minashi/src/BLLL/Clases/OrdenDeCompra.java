@@ -112,25 +112,22 @@ public class OrdenDeCompra {
         this.peso = peso;
     }
 
-    public void emitirOrden(){
-
+    public void emitirOrden() {
         int clienteId = getDestinatario().getIdUsuario();
         Double total = getTotal();
         Double peso = getPeso();
-        String estado = getEstado();
+        String estado = (peso >= 20) ? "con descuento" : "normal";
 
         ArrayList<Mineral> minerales = getMinerales();
 
-         int ordenID = OrdenesRepository.crearOrdenDeCompra(clienteId, total, peso, estado);
+        int ordenID = OrdenesRepository.crearOrdenDeCompra(clienteId, total, peso, estado);
 
         for (Mineral mineral : minerales) {
-
             int mineralId = mineral.getIdMineral();
             Double toneladas = mineral.getToneladas();
 
             OrdenesRepository.insertarMineralEnOrden(ordenID, mineralId, toneladas);
         }
-
     }
 
     @Override
